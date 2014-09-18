@@ -11,7 +11,7 @@ public class ConnectionFactory {
 			Class.forName("com.mysql.jdbc.Driver");
 			return DriverManager.getConnection(					
 
-					"jdbc:mysql://localhost/dicaspet", "root", "kaioh");
+					"jdbc:mysql://$OPENSHIFT_MYSQL_DB_", "adminWXZ6qLn", "Fsm4XhmqUqnE");
 
 		} catch (ClassNotFoundException e) {
 			throw new SQLException(e.getMessage());
