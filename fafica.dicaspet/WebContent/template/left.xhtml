@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>DicasPet- Contato - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+
+	<ui:composition>
+		<div class="left">
+			<f:view encoding="utf-8">
+				<h:panelGroup layout="block" class="login"
+					rendered="#{usuarioMB.user.ativo}">
+
+					<h3>Entrar no DicasPet</h3>
+					<br />
+					<p:messages errorStyle="color: red" infoStyle="color: green"
+						id="msgLeft" warnStyle="color: orange" fatalStyle="color: gray"
+						showDetail="true" showSummary="false" escape="true"
+						for="form_autenticar" />
+					<h:form prependId="false" id="form_autenticar"
+						acceptcharset="ISO-8859-1">
+						<p:message for="loginEmail"></p:message>
+						<p:message for="senhaemail"></p:message>
+
+						<label>Email:</label>
+						<p:inputText value="#{usuarioMB.user.usu_email}" id="loginEmail"
+							requiredMessage="Por favor insira seu endereço de e-mail."
+							validatorMessage="Email Inválido" required="true" label="email">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+						<br />
+						<br />
+						<label>Senha:</label>
+						<p:password value="#{usuarioMB.user.usu_senha}" required="true"
+							id="senhaemail"
+							requiredMessage="Digite a Senha: Campo Obrigatório" />
+						<br />
+						<br />
+						<div class="bt-logar">
+							<h:commandButton value="Entrar" action="#{usuarioMB.autenticar}"
+								update="msgLeft" />
+							<p>Clicar em entrar para acessar o protótipo interno do
+								sistema</p>
+						</div>
+					</h:form>
+
+					<div class="link-cad">
+						<p>Venha fazer parte dessa comunidade!</p>
+						<br /> <a href="cadastro.xhtml">Cadastre-se</a> <br /> <br />
+
+					</div>
+					<div class="duvidas-frequentes">
+						<h3>Dúvidas Frequentes</h3>
+						<ul class="duvidas-lista">
+							<li><a href="#">Como se cadastrar?</a></li>
+							<li><a href="#">Como entrar no DicasPet?</a></li>
+							<li><a href="#">Como Fazer uma Pergunta?</a></li>
+							<li><a href="#">Como responder uma pergunta?</a></li>
+							<li><a href="#">Como encontrar um serviço?</a></li>
+						</ul>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup class="usuario" rendered="#{!usuarioMB.user.ativo}">
+
+					<h:graphicImage library="images" name="user.jpg" />
+					<h3>
+						<h:outputLabel value="#{usuarioMB.user.usu_nome}" />
+					</h3>
+					<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+					<h:form>
+						<h:commandButton value="Sair" class="bt-logoff"
+							action="#{usuarioMB.logoff}" />
+					</h:form>
+					<div class="my-rank"></div>
+					<ul class="my-menu">
+						<li><a href="admin/usuario.xhtml"><h:graphicImage
+									library="images/icones" name="user.jpg" />Meu Perfil</a></li>
+						<li><a href="admin/lista-animal.xhtml"><h:graphicImage
+									library="images/icones" name="logodicaspet.png" />Meu Pets</a></li>
+						<li><a href="admin/ranking-user.xhtml"><h:graphicImage
+									library="images/icones" name="Podium-icon.png" />Ranking</a></li>
+					</ul>
+
+				</h:panelGroup>
+
+			</f:view>
+		</div>
+
+	</ui:composition>
+</body>
+</html>

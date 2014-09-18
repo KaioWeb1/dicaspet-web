@@ -1,0 +1,225 @@
+
+package com.dicaspet.entidade;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.JoinColumn;  
+import javax.persistence.CascadeType;  
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.dicaspet.fachada.Fachada;
+
+@Entity(name = "usuario")
+	public class Usuario implements Serializable {
+
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+		@Id
+        @GeneratedValue
+        private long usu_id;
+
+        @Temporal(TemporalType.TIMESTAMP)
+        @Column(name = "data_cadastro", nullable = true)
+        private Date data_cadastro;
+
+        @Column(name = "nome", length = 200, nullable = true)
+        private String usu_nome;
+        
+        @Column(name = "tipo_servico", length = 200, nullable = true)
+        private String usu_tipo_servico;
+        
+        @Column(name = "cfp", length = 200, nullable = true)
+        private String usu_cfp;
+        
+        @Column(name = "endereco", length = 200, nullable = true)
+        private String usu_endereco;
+        
+        @Column(name = "cnpj", length = 200, nullable = true)
+        private String usu_cnpj;
+        
+        @Column(name = "ativo")
+        private boolean ativo;
+
+        @Column(name = "email", length = 50, nullable = false)
+        private String usu_email;
+
+        @Column(name = "senha", length = 50, nullable = false)
+        private String usu_senha;
+
+        @Column(name = "status", length = 30, nullable = true)
+        private String usu_status;
+
+        @Column(name = "nivel_acesso", length = 30, nullable = true)
+        private String usu_nivel_acesso;
+
+        @Column(name="pontuacao",nullable=true)
+        private Integer usu_pontuacao; 
+        
+        
+        @OneToMany(fetch = FetchType.LAZY)
+        @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+        @Fetch(FetchMode.SELECT)
+        private Set<Animal> animais;
+        
+        @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)  
+        @JoinTable(name = "usuario_servico", joinColumns = { @JoinColumn(name = "usu_id") }, inverseJoinColumns = { @JoinColumn(name = "srv_id") })  
+        private Set<Servico>servicos = new HashSet<Servico>();  
+        
+
+        public Set<Servico> getServicos() {
+            
+            Fachada fachada = Fachada.getInstance();
+            List<Servico> automoveis = fachada.controladorUsuario().buscarServicos(this);
+            for(Servico a : automoveis){
+                    servicos.add(a);
+            }
+            return servicos;
+		}
+
+		public Long getUsu_id() {
+                return usu_id;
+        }
+
+        public void setUsu_id(Long usu_id) {
+                this.usu_id = usu_id;
+        }
+
+        public Date getData_cadastro() {
+                return data_cadastro;
+        }
+
+        public void setData_cadastro(Date data_cadastro) {
+                this.data_cadastro = data_cadastro;
+        }
+
+        public String getUsu_nome() {
+                return usu_nome;
+        }
+
+        public void setUsu_nome(String usu_nome) {
+                this.usu_nome = usu_nome;
+        }
+
+        public String getUsu_email() {
+                return usu_email;
+        }
+
+        public void setUsu_email(String usu_email) {
+                this.usu_email = usu_email;
+        }
+
+        public String getUsu_senha() {
+                return usu_senha;
+        }
+
+        public void setUsu_senha(String usu_senha) {
+                this.usu_senha = usu_senha;
+        }
+
+        public String getUsu_status() {
+                return usu_status;
+        }
+
+        public void setUsu_status(String usu_status) {
+                this.usu_status = usu_status;
+        }
+
+        public String getUsu_nivel_acesso() {
+                return usu_nivel_acesso;
+        }
+
+        public void setUsu_nivel_acesso(String usu_nivel_acesso) {
+                this.usu_nivel_acesso = usu_nivel_acesso;
+        }
+
+        public Integer getUsu_pontuacao() {
+                return usu_pontuacao;
+        }
+
+        public void setUsu_pontuacao(Integer usu_pontuacao) {
+                this.usu_pontuacao = usu_pontuacao;
+        }
+
+        public String getUsu_endereco() {
+                return usu_endereco;
+        }
+
+        public void setUsu_endereco(String usu_endereco) {
+                this.usu_endereco = usu_endereco;
+        }
+
+        public boolean isAtivo() {
+                System.out.println(ativo);
+                return ativo;
+        }
+
+        public void setAtivo(boolean ativo) {
+                this.ativo = ativo;
+        }
+
+        public Set<Animal> getAnimais() {
+                
+                animais = new HashSet<Animal>();
+                Fachada fachada = Fachada.getInstance();
+                List<Animal> automoveis = fachada.controladorUsuario().buscarAnimais(this);
+                for(Animal a : automoveis){
+                        animais.add(a);
+                }
+                return animais;
+        }
+
+        public void setAnimais(Set<Animal> animais) {
+                this.animais = animais;
+        }
+
+        public void setUsu_id(long usu_id) {
+                this.usu_id = usu_id;
+        }
+
+		public String getUsu_tipo_servico() {
+			return usu_tipo_servico;
+		}
+
+		public void setUsu_tipo_servico(String usu_tipo_servico) {
+			this.usu_tipo_servico = usu_tipo_servico;
+		}
+
+		public String getUsu_cfp() {
+			return usu_cfp;
+		}
+
+		public void setUsu_cfp(String usu_cfp) {
+			this.usu_cfp = usu_cfp;
+		}
+
+		public String getUsu_cnpj() {
+			return usu_cnpj;
+		}
+
+		public void setUsu_cnpj(String usu_cnpj) {
+			this.usu_cnpj = usu_cnpj;
+		}
+
+}

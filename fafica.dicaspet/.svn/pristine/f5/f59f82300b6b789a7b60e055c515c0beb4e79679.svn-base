@@ -1,0 +1,101 @@
+package com.dicaspet.entidade;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity(name="prestador_servico")
+public class PrestadorServico implements Serializable {
+
+	@Id
+	@GeneratedValue
+	private long prtsrv_id;
+	
+	@Column(name="status",nullable=false)
+	private String prtsrv_status;
+	
+	@Column(name="tipo",nullable=false)
+	private String prtsrv_tipo;
+	
+	@Column(name="cpf",nullable=false)
+	private String prtsrv_cpf;
+	
+	@Column(name="cnpj",nullable=false)
+	private String prtsrv_cnpj;
+	
+	@Column(name="nome",nullable=false)
+	private String prtsrv_nome;
+	
+	@Column(name="endereco",nullable=false)
+	private String prtsrv_endereco;
+	
+	@Column(name="pontuacao",nullable=true)
+	private Integer prtsrv_pontuacao;
+
+	public long getPrtsrv_id() {
+		return prtsrv_id;
+	}
+
+	public void setPrtsrv_id(long prtsrv_id) {
+		this.prtsrv_id = prtsrv_id;
+	}
+
+	public String getPrtsrv_status() {
+		return prtsrv_status;
+	}
+
+	public void setPrtsrv_status(String prtsrv_status) {
+		this.prtsrv_status = prtsrv_status;
+	}
+
+	public String getPrtsrv_tipo() {
+		return prtsrv_tipo;
+	}
+
+	public void setPrtsrv_tipo(String prtsrv_tipo) {
+		this.prtsrv_tipo = prtsrv_tipo;
+	}
+
+	public String getPrtsrv_cpf() {
+		return prtsrv_cpf;
+	}
+
+	public void setPrtsrv_cpf(String prtsrv_cpf) {
+		this.prtsrv_cpf = prtsrv_cpf;
+	}
+
+	public String getPrtsrv_cnpj() {
+		return prtsrv_cnpj;
+	}
+
+	public void setPrtsrv_cnpj(String prtsrv_cnpj) {
+		this.prtsrv_cnpj = prtsrv_cnpj;
+	}
+
+	public String getPrtsrv_nome() {
+		return prtsrv_nome;
+	}
+
+	public void setPrtsrv_nome(String prtsrv_nome) {
+		this.prtsrv_nome = prtsrv_nome;
+	}
+
+	public String getPrtsrv_endereco() {
+		return prtsrv_endereco;
+	}
+
+	public void setPrtsrv_endereco(String prtsrv_endereco) {
+		this.prtsrv_endereco = prtsrv_endereco;
+	}
+
+	public Integer getPrtsrv_pontuacao() {
+		return prtsrv_pontuacao;
+	}
+
+	public void setPrtsrv_pontuacao(Integer prtsrv_pontuacao) {
+		this.prtsrv_pontuacao = prtsrv_pontuacao;
+	}
+}

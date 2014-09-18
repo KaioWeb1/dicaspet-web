@@ -1,0 +1,45 @@
+package com.dicaspet.util;
+
+import java.util.Date;
+
+import javax.swing.JOptionPane;
+
+import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.fachada.Fachada;
+
+
+
+public class GeraBanco {
+    public static void main (String [] args){
+    	try {
+    		Configuration cfg = new Configuration();
+            cfg.configure();
+            SchemaExport se = new SchemaExport(cfg);
+            se.create(true, true);
+            
+            //cadastrar usuario padrao
+//            Usuario f = new Usuario();
+//    		f.setNome("adm");
+//    		f.setEmail("1");
+//    		f.setSenha("1");
+//    		f.setStatus("A");
+//    		f.setNivelAcesso("adm");
+//    		f.setData_cadastro(new Date());
+//    		f.setData_atualizacao(new Date());
+ 
+//            
+//            Fachada fachada = Fachada.getInstance();
+//            fachada.cadastroUsuario().cadastrar(f);
+            
+            JOptionPane.showMessageDialog(null, "O Banco de Dados foi gerado com sucesso!",
+            		"Fafica .:. Alerta",JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro ao Gerar a Base de Dados!",
+            	"Fafica .:. Alerta",JOptionPane.ERROR_MESSAGE);
+		}
+    }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-usuario.xhtml" />
+			<div class="center">
+
+	
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+				
+					<h3>Serviços</h3>
+					
+					<br></br>
+					<br></br>
+					<div class="pergunta">
+						<div class="link-resposta"><a href="cadastro-servico.xhtml">Cadastrar Serviço</a></div>
+					</div>
+					
+					<br></br>
+					<br />
+				
+					<h3>Lista de Agendamento</h3>
+					<h:form id="meusServicos">
+						<p:dataTable id="listaServicosDT" var="animal"
+							value="#{usuarioMB.meusServicos}"
+							selection="#{usuarioMB.servicosSelecionados}" rowKey="#{animal.srv_id}"
+							style="margin-bottom:0">
+							<f:facet name="header">
+                                Meus Serviços
+                            </f:facet>
+							<p:column selectionMode="multiple"
+								style="width:10%;text-align:center" />
+							<p:column headerText="Drescrição">
+								<h:outputText value="#{animal.srv_descricao}" />
+							</p:column>
+							<p:column headerText="Data do agendamento">
+								<h:outputText value="#{animal.srv_dt_agenda}" />
+							</p:column>
+							 <p:column headerText="Status do agendamento">
+								<h:outputText value="#{animal.srv_confirmacao}" />  
+							</p:column> 
+							<p:column headerText="Preço">
+								<h:outputText value="#{animal.srv_preco}" />
+							</p:column>
+							<f:facet name="footer">
+							
+							<!--  -->
+								<p:commandButton process="listaServicosDT"
+									 icon="ui-icon-search"
+									value="Detalhes" oncomplete="PF('multiCarDialog').show()" update=":meusServicos:multiServicoDetalhe" />
+							</f:facet>
+						</p:dataTable>
+
+						<p:dialog header="Informações do serviço" widgetVar="carDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="carDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty usuarioMB.servicoSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage
+											name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
+									</f:facet>
+
+									<h:outputText value="Id:" />
+									<h:outputText value="#{usuarioMB.servicoSelecionado.srv_id}" />
+
+									<h:outputText value="Data" />
+									<h:outputText value="#{usuarioMB.servicoSelecionado.srv_dt_agenda}" />
+
+									<h:outputText value="Status" />
+									<h:outputText value="$#{usuarioMB.servicoSelecionado.srv_status}" />
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Serviços selecionados" widgetVar="multiCarDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false" width="400">
+							<p:outputPanel id="multiServicoDetalhe" style="text-align:center;">
+								<ui:repeat value="#{usuarioMB.servicosSelecionados}" var="car">
+									<h:outputText value="#{car.srv_id} - #{car.srv_descricao}"
+										style="display:block" />
+										<h:commandButton value="Deletar" action="#{servicoMB.deletar(car)}" />
+										<h:commandButton value="Editar" action="#{servicoMB.editarServicoRedirect(car)}" />
+										<h:commandButton value="Confirmar Agendamento" action="#{servicoMB.confirmarAgendamento(car)}" /> 
+								</ui:repeat>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+			<div class="clr"></div>
+		</div>
+
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

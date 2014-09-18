@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	
+</h:head>
+<body>
+	
+
+	<div class="wrapper">
+		<ui:include src="/template/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="/template/left.xhtml" />
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- Inicio Bloco de Perguntas -->
+				<div class="bloco-pesq-servico">
+					<h3>Busca de Serviços</h3>
+					<h:form>
+						<p:dataTable var="car" value="#{servicoMB.servicos}"
+							widgetVar="carsTable" emptyMessage="Serviço não encontrado"
+							filteredValue="#{servicoMB.servicosFiltrados}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Search all fields:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('carsTable').filter()" style="width:150px"
+										placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column filterBy="#{car.srv_descricao}" headerText="Descrição"
+								footerText="" filterMatchMode="contains">
+								<h:outputText value="#{car.srv_descricao}" />
+							</p:column>
+
+							<p:column filterBy="#{car.srv_categoria}" headerText="Categoria"
+								footerText="" filterMatchMode="contains">
+								<h:outputText value="#{car.srv_categoria}" />
+							</p:column>
+
+
+							<!-- 							<p:column filterBy="#{car.srv_dt_agenda}" headerText="Data de agendamento"
+								footerText="" filterMatchMode="lte">
+								<f:facet name="filter">
+									<p:spinner onchange="PF('carsTable').filter()"
+										styleClass="year-spinner">
+										<f:converter converterId="javax.faces.Integer" />
+									</p:spinner>
+								</f:facet>
+								<h:outputText value="#{car.srv_dt_agenda}" />
+							</p:column> -->
+
+							<p:column filterBy="#{car.srv_preco}" headerText="Preço"
+								footerText="" filterFunction="#{servicoMB.filterByPrice}">
+								<h:outputText value="#{car.srv_preco}">
+									<f:convertNumber currencySymbol="R$" type="currency" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+
+								<h:commandButton
+									action="#{servicoMB.redirectPerfilServico(car)}"
+									value="Detalhes" />
+
+							</p:column>
+
+							<!-- 	<p:column filterBy="#{car.sold}" headerText="Status"
+								footerText="equals" filterMatchMode="equals">
+								<f:facet name="filter">
+									<p:selectOneButton onchange="PF('carsTable').filter()">
+										<f:converter converterId="javax.faces.Boolean" />
+										<f:selectItem itemLabel="All" itemValue="" />
+										<f:selectItem itemLabel="Sold" itemValue="true" />
+										<f:selectItem itemLabel="Sale" itemValue="false" />
+									</p:selectOneButton>
+								</f:facet>
+								<h:outputText value="#{car.sold ? 'Sold': 'Sale'}" />
+							</p:column> -->
+
+
+						</p:dataTable>
+					</h:form>
+				</div>
+				<!-- Fim do Bloco  -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+			</div>
+			<ui:include src="/template/right.xhtml" />
+
+
+
+		</div>
+		<ui:include src="/template/footer.xhtml" />
+	</div>
+
+</body>
+</html>

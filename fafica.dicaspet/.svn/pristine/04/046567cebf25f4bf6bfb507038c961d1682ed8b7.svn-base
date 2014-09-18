@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	<script type="text/javascript">
+
+function repor(){
+	alert("Reposição realizada com sucesso!");
+}
+
+</script>
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+		<f:view encoding="utf-8">  
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-usuario.xhtml" />
+			<div class="center">
+
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- Inicio Bloco de Perguntas -->
+				
+					<div class="bloco-perguntas">
+						<h3>Últimas Perguntas</h3>
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+
+						<ui:repeat value="#{mensagemMB.ultimasMSG}" var="m"
+							id="listaUltimasMSG">
+							<div class="pergunta">
+								<div class="titulo-pergunta">
+									<h:outputText value="#{m.msg_titulo}" />
+								</div>
+								<div class="data-pergunta">
+									<h:outputText value="#{m.msg_data_cadastro}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</div>
+								<div class="link-resposta">
+									<h:form>
+										<h:commandLink value="Ver Resposta"
+											action="#{mensagemMB.responderMSG(m)}" />
+									</h:form>
+								</div>
+							</div>
+						</ui:repeat>
+					</div>
+					<!-- Fim da Pergunta -->
+					
+ 
+ 
+ 
+					<h3>Cadastre sua pergunta no DicasPet</h3>
+					<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+					<div class="pergunta">
+
+						<div class="cadastrar-pergunta">
+							<h:form id="form_cad_pergunta_usu" acceptcharset="ISO-8859-1">
+								<p>O que deseja saber?</p>
+								<p>Título:</p>
+								<h:inputText value="#{mensagemMB.atual.msg_titulo}" />
+								<br />
+								<p>Descrição:</p>
+
+								<h:inputTextarea value="#{mensagemMB.atual.msg_conteudo}" />
+
+								<div class="info-pergunta">
+									<p>Qual animal?</p>
+									<h:selectOneMenu id="tipo_animal_perg_usu"
+										value="#{mensagemMB.atual.msg_tipo_animal}">
+
+										<f:selectItem itemValue="Chachorro" itemLabel="Chachorro" />
+										<f:selectItem itemValue="Gato" itemLabel="Gato" />
+
+									</h:selectOneMenu>
+
+								</div>
+								<div class="bt-perguntar">
+									<h:commandButton action="#{mensagemMB.cadastrarPergunta}"
+										value="Enviar" oncomplete="#{mensagemMB.ultimasMSG}"
+										update="listaUltimasMSG" />
+								</div>
+							</h:form>
+						</div>
+
+						<!-- <div class="cadastrar-pergunta">
+								<form action="" method="post">
+								<p>O que deseja saber?</p>
+								<input type="text" />
+								<div class="info-pergunta">
+								<p>anexo:</p>
+								<input type="file"/>
+								<p>Qual animal?</p>
+								<select name="animais">
+									<option value="cachorro">Cachorro</option>
+									<option value="cachorro">Gato</option>
+									<option value="cachorro">Passarinho</option>
+									<option value="cachorro">Peixe</option>
+								</select>
+								
+								</div>
+								<div class="bt-perguntar">
+									<input type="submit" value="Perguntar"/>
+								</div>
+								</form>
+							</div> -->
+
+	
+				</div>
+				<!-- Fim do Bloco de Perguntas -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+
+			<div class="clr"></div>
+			</f:view>
+		</div>
+
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

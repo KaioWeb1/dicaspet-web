@@ -1,0 +1,56 @@
+package com.dicaspet.repositorio;
+
+import java.util.List;
+
+import com.dicaspet.dao.Dao;
+import com.dicaspet.entidade.Mensagem;
+import com.dicaspet.util.Constants;
+
+public class RepositorioMensagem {
+
+	private Dao dao;
+	
+	public RepositorioMensagem(){
+		if(dao == null){
+			dao = Dao.getInstance();
+		}
+	}
+	
+	public void inserir(Mensagem novo){
+		novo.setMsg_status(Constants.ATIVO);
+		dao.salvarObjeto(novo);
+	}
+	
+	public void atualizar(Mensagem atual){
+		dao.atualizarObjeto(atual);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Mensagem> listar(){
+		return (List<Mensagem>) dao.criarQuery("FROM mensagem WHERE status <> '" + Constants.INATIVO + "'");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Mensagem> listarRecente(){
+		return (List<Mensagem>) dao.criarQuery("FROM mensagem order by data_cadastro desc");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Mensagem> buscarNome(String nome){
+		return (List<Mensagem>) dao.buscarPorLikeIgnoreCase("nome", nome, Mensagem.class);
+	}
+	
+	
+	public void remover(Mensagem del){
+		del.setMsg_status(Constants.INATIVO);
+		dao.atualizarObjeto(del);
+	}
+	
+	
+	public Mensagem buscarMensagem(Long id){
+		Mensagem mensagem = (Mensagem) dao.buscarPorId(Mensagem.class, id);
+		return mensagem;
+	}
+	
+
+}

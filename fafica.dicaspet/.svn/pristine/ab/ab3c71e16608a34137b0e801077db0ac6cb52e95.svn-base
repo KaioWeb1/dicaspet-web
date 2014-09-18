@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+<script type="text/javascript" src="resources/js/js.js"></script>
+	<script type="text/javascript" src="resources/js/js.js"></script>
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-usuario.xhtml" />
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-contato">
+					<h3>Venha Participar do DicasPet</h3>
+					<h:form id="form_cadastro_animal" prependId="false">
+						<h:messages errorStyle="color: red" infoStyle="color: yellow"
+							warnStyle="color: orange" fatalStyle="color: gray"
+							showDetail="true" showSummary="false" />
+
+						<h:outputLabel value="Nome do animal:" />
+						<h:inputText value="#{animalMB.animal.ani_nome}" />
+						<br></br>
+						<h:outputLabel value="Foto do animal:" />
+                        <p:fileUpload id="upload" fileUploadListener="#{animalMB.uploadAction}" mode="simple" auto="true"/>
+						<br></br>
+						<h:outputLabel value="Raça:" />
+						<h:inputText value="#{animalMB.animal.ani_raca}" />
+						<br></br>
+						<h:outputLabel value="Espécie: " />
+						<h:selectOneMenu value="#{animalMB.animal.ani_especie}">
+							<f:selectItem itemValue="Cachorro" itemLabel="Cachorro" />
+							<f:selectItem itemValue="Gato" itemLabel="Gato" />
+							<f:selectItem itemValue="Coelho" itemLabel="Coelho" />
+							<f:selectItem itemValue="Passarinho" itemLabel="Passarinho" />
+							<f:selectItem itemValue="Outros" itemLabel="Outros" />
+						</h:selectOneMenu>
+						<br></br>
+						<h:outputLabel value="Idade:" />
+						<h:inputText  id="cadAniIdade" value="#{animalMB.animal.ani_idade}" onKeyPress="validateInput('[0-9]*')" />
+						<br></br>
+						<h:outputLabel value="Porte: " />
+						<h:selectOneMenu value="#{animalMB.animal.ani_porte}">
+							<f:selectItem itemValue="Pequeno" itemLabel="Pequeno" />
+							<f:selectItem itemValue="Médio" itemLabel="Médio" />
+							<f:selectItem itemValue="Grande" itemLabel="Grande" />
+						</h:selectOneMenu>
+						<br></br>
+						<h:outputLabel value="Peso:" />
+						<h:inputText value="#{animalMB.animal.ani_peso}" />
+						<br></br>
+						<h:outputLabel value="Disponível para adoção: " />
+						<h:selectOneMenu value="#{animalMB.animal.ani_status_animal}">
+						<f:selectItem itemValue="N" itemLabel="Indisponível" />
+							<f:selectItem itemValue="D" itemLabel="Disponível" />
+							<f:selectItem itemValue="A" itemLabel="Adotado" />
+						</h:selectOneMenu>
+						
+
+						<br />
+						<br />
+						<h:commandButton value="Enviar" class="bt-enviar"
+							actionListener="#{animalMB.cadastrar}"/>
+						<br></br>
+
+					</h:form>
+				</div>
+				<!-- Fim do Bloco  -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+
+
+
+
+		</div>
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

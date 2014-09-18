@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	<script type="text/javascript">
+
+function repor(){
+	alert("Reposição realizada com sucesso!");
+	window.location.reload(); 
+}
+
+</script>
+</h:head>
+<body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<div class="header">
+			<div class="topo">
+
+				<div class="logo">
+					<img src="../images/logodicaspet.png" class="img-logo" />
+
+				</div>
+				<div class="menu">
+					<ul class="ul-menu">
+						<li><a href="../index.xhtml">Home</a></li>
+						<li><a href="../servicos.xhtml">Serviços</a></li>
+						<li><a href="../perguntas.xhtml">Perguntas e Respostas</a></li>
+						<li><a href="../contato.xhtml">Contato</a></li>
+					</ul>
+				</div>
+				<div class="busca">
+					<ul>
+						<li><input type="text" value="Procurar..." /><input
+							type="submit" value="ok" /><img src="" /></li>
+					</ul>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<div class="left">
+				<div class="usuario">
+
+					<img alt="" src="../images/user.jpg" />
+					<h3>
+						<h:outputLabel value="#{usuarioMB.user.usu_nome}" />
+					</h3>
+					<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+					<h:form>
+						<h:commandButton value="Sair" class="bt-logoff"
+							action="#{usuarioMB.logoff}" />
+					</h:form>
+					<div class="my-rank">
+						<p>Posição atual</p>
+						<img alt="" src="../images/rank/prata.png" /> <a href="#">2º
+							Lugar</a>
+
+					</div>
+					<ul class="my-menu">
+							<li><a href="usuario.xhtml"><h:graphicImage library="images/icones" name="user.jpg"/>Meu Perfil</a></li>
+							<li><a href="lista-animal.xhtml"><h:graphicImage library="images/icones" name="logodicaspet.png"/>Meu Pets</a></li>
+							<li><a href="ranking-user.xhtml"><h:graphicImage library="images/icones" name="Podium-icon.png"/>Ranking</a></li>							
+						</ul>
+
+				</div>
+
+			</div>
+			<div class="center">
+
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+					<h3>Perfil do animal</h3>
+					<div class="foto-empresa">
+					<!-- 	<img alt="" src="../images/meu_amigo_pet.jpg" />  -->
+					
+					<p:graphicImage value="#{animalMB.animal.ani_foto}"/>
+
+					</div>
+
+					<div class="desc-empresa">
+						<h2>
+							<h:outputText value="#{animalMB.animal.ani_nome}" />
+						</h2>
+						<br />
+
+						<p class="dados-empresa">
+							Espécie:
+							<h:outputText value="#{animalMB.animal.ani_especie}" />
+							<br />
+							<br /> Peso:
+							<h:outputText value="#{animalMB.animal.ani_peso}" />
+							<br />
+							<br /> Raça:
+							<h:outputText value="#{animalMB.animal.ani_raca}" />
+							<br />
+							<br /> Quantidade necessária de comida diaria:
+							<h:outputText value="#{animalMB.animal.ani_qtdInicAlimento}" />
+							<br />
+							<br /> Quantidade máxima de comida diaria recomendada:
+							<h:outputText value="#{animalMB.animal.ani_qtdFimAlimento}" />
+							<br />
+
+						</p>
+					</div>
+					<h:panelGroup class="pergunta"
+						rendered="#{AnimalMB.animal.ani_status_animal}">
+						<div class="link-resposta">
+							<a href="#">ADOTAR</a>
+						</div>
+					</h:panelGroup>
+
+					<div class="Grafico">
+					
+					<p:chart id="gg" type="line" model="#{reporAlimentoMB.zoomModel}" style="height:300px;" widgetVar="chart" />
+
+						<!-- <p:commandButton type="button" value="Repor Alimento"
+							icon="ui-icon-cancel" action="#{reporAlimentoMB.getRepor()}" /> -->
+							<form>
+							<p:commandLink  value="Repor Alimento" action="#{reporAlimentoMB.getRepor()}" update="gg"/>
+							</form>
+					</div>
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<div class="right">
+
+				<div class="banner">
+					<h3>Adote um Pet</h3>
+					<a href="admin/adotar.xhtml"><img alt=""
+						src="../images/adote-um-melhor-amigo-1.jpg" /></a>
+				</div>
+				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+					<ui:repeat var="usuario" value="#{rankingMB.usuarios}">
+
+						<div class="rank-item">
+							<img alt="" src="../images/rank/ouro.png" />
+							<h:outputText value="#{usuario.usu_nome}" />
+							-
+							<h:outputText value="#{usuario.usu_pontuacao}" />
+							pontos
+						</div>
+
+					</ui:repeat>
+				</div>
+
+
+				<div class="ranking-serv">
+					<h3>Ranking de Serviços</h3>
+					<ui:repeat var="servico" value="#{rankingMB.servicos}">
+
+						<div class="rank-item">
+							<img alt="" src="../images/rank/ouro.png" />
+							<h:outputText value="#{servico.srv_descricao}" />
+							-
+							<h:outputText value="#{servico.srv_pontuacao}" />
+							pontos
+						</div>
+
+					</ui:repeat>
+				</div>
+
+				<div id="verifica-peso" class="verifica-peso">
+					<h3>Verificar o Peso Ideal do cachorro</h3>
+					<h:form>
+						<br />
+						<h:inputText value="#{pesoIdealMB.pesoAtual}" />
+						<br /><br />
+						<h:selectOneMenu value="#{pesoIdealMB.porte}">
+							<f:selectItem itemValue="pequeno" itemLabel="Pequeno" />
+							<f:selectItem itemValue="medio" itemLabel="Medio" />
+							<f:selectItem itemValue="grande" itemLabel="Grande" />
+						</h:selectOneMenu>
+						<br /><br />
+						<h:selectOneMenu value="#{pesoIdealMB.sexo}">
+							<f:selectItem itemValue="femea" itemLabel="Femea" />
+							<f:selectItem itemValue="macho" itemLabel="Macho" />
+						</h:selectOneMenu>
+						<br /><br />
+						<h:commandButton value="Calcular"
+							action="#{pesoIdealMB.calcularPesoIdeal}"  />
+					</h:form>
+					<br />
+					<p class="msg-peso"><h:outputText value="#{pesoIdealMB.msg}" /></p>
+
+				</div>
+				<!-- 				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">Jão
+							da Silva - 10429 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Fulano
+							Santos - 8291 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Zé
+							Maria - 6029 pontos</a>
+					</div>
+
+
+
+				</div>
+				<div class="ranking-serv">
+					<h3>Ranking de Serviços</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">PetShow
+							- 4920 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Animal
+							Pet - 3202 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Bicho
+							Amigo - 2390 pontos</a>
+					</div>
+
+
+
+
+				</div> -->
+			</div>
+
+		</div>
+		<div class="footer">
+			<div class="rodape">
+
+				<div class="institucional">
+					<p>Todos os Direitos Reservados à CELTIC Solutions - 2014</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

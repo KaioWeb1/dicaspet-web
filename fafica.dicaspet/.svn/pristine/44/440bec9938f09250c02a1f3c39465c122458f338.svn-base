@@ -1,0 +1,42 @@
+package com.dicaspet.controlador;
+
+import java.util.List;
+
+import com.dicaspet.entidade.Mensagem;
+import com.dicaspet.repositorio.RepositorioMensagem;
+
+public class ControladorMensagem {
+
+	private RepositorioMensagem rep;
+
+	public ControladorMensagem(RepositorioMensagem rep) {
+		this.rep = rep;
+	}
+
+	public void cadastrar(Mensagem novo) {
+
+		rep.inserir(novo);
+	}
+
+	public void atualizar(Mensagem atual) {
+
+		rep.atualizar(atual);
+	}
+
+	public void remover(Mensagem deletado) {
+		rep.remover(deletado);
+	}
+
+	public List<Mensagem> listar() {
+		return rep.listar();
+	}
+
+	public List<Mensagem> buscaNome(String nome) {
+		return rep.buscarNome(nome);
+	}
+
+	public Mensagem buscarMensagem(Long id) {
+		return rep.buscarMensagem(id);
+	}
+
+}

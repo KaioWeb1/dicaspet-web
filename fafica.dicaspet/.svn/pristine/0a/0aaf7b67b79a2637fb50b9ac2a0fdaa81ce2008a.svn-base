@@ -1,0 +1,51 @@
+package com.dicaspet.repositorio;
+
+import java.util.List;
+
+import com.dicaspet.dao.Dao;
+import com.dicaspet.entidade.PrestadorServico;
+import com.dicaspet.util.Constants;
+
+public class RepositorioPrestadorServico {
+
+	private Dao dao;
+	
+	public RepositorioPrestadorServico(){
+		if(dao == null){
+			dao = Dao.getInstance();
+		}
+	}
+	
+	public void inserir(PrestadorServico novo){
+		novo.setPrtsrv_status(Constants.ATIVO);
+		dao.salvarObjeto(novo);
+	}
+	
+	public void atualizar(PrestadorServico atual){
+		dao.atualizarObjeto(atual);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PrestadorServico> listar(){
+		return (List<PrestadorServico>) dao.criarQuery("FROM prestador_servico WHERE status <> '" + Constants.INATIVO + "'");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PrestadorServico> buscarNome(String nome){
+		return (List<PrestadorServico>) dao.buscarPorLikeIgnoreCase("nome", nome, PrestadorServico.class);
+	}
+	
+	
+	public void remover(PrestadorServico del){
+		del.setPrtsrv_status(Constants.INATIVO);
+		dao.atualizarObjeto(del);
+	}
+	
+	
+	public PrestadorServico buscarPrestadorServico(Long id){
+		PrestadorServico prestadorServico = (PrestadorServico) dao.buscarPorId(PrestadorServico.class, id);
+		return prestadorServico;
+	}
+	
+
+}

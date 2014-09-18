@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<!--  <h:outputScript name="js.js" library="js"/>-->
+	<script type="text/javascript" src="resources/js/js.js"></script>
+
+</h:head>
+<h:body>
+
+	<div class="wrapper">
+		<ui:include src="/template/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="/template/left.xhtml" />
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-contato">
+					<h3>Venha Participar do DicasPet</h3>
+					<h:form id="form_cadastro_usuario" prependId="false">
+
+						<p:messages errorStyle="color: red" infoStyle="color: green"
+							warnStyle="color: orange" fatalStyle="color: gray"
+							showDetail="true" showSummary="false" />
+
+						<h:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{usuarioMB.usuario.usu_nome}"
+							requiredMessage="Nome: Campo Obrigatório" required="true" />
+							<p:watermark for="nome" value="Nome do usuário" />
+						<br></br>
+						<h:outputLabel value="E-mail:" />
+						<!--  <h:inputText id="email" value="#{usuarioMB.usuario.usu_email}" onblur="validaEmail()"  /> -->
+						<p:inputText id="email" value="#{usuarioMB.usuario.usu_email}"
+							required="true" label="email"
+							requiredMessage="Por favor insira seu endereço de e-mail."
+							validatorMessage="Email Inválido">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+						<p:watermark for="email" value="Endereço de E-mail" />
+						<!-- <p:message for="email" />  -->
+						<br></br>
+						<h:outputLabel value="Senha:" />
+						<!-- <h:inputSecret id="senha" value="#{usuarioMB.usuario.usu_senha}" required="true" />  -->
+						<p:password id="senha" value="#{usuarioMB.usuario.usu_senha}"
+							required="true" match="senha1"
+							validatorMessage="As senhas são diferentes"
+							requiredMessage="Senha: Campo Obrigatório" />
+						<br></br>
+						<h:outputLabel value="Confirme a Senha:" />
+						<p:password id="senha1" value="#{usuarioMB.usuario.usu_senha}"
+							required="true"
+							requiredMessage="Confirme a Senha: Campo Obrigatório" />
+						<br></br>
+						<h:outputLabel value="Sua foto:" />
+						<input type="file" />
+						<br></br>
+						<!-- <h:outputLabel value="Nome do animal:" />
+						<h:inputText value="#{usuarioMB.animal.ani_nome}" />
+						<br></br>
+						<h:outputLabel value="Foto do animal:" />
+						<input type="file" />
+						<br></br>
+						<h:outputLabel value="Raça:" />
+						<h:inputText value="#{usuarioMB.animal.ani_raca}" />
+						<br></br>
+						<h:outputLabel value="Espécie:" />
+						<h:inputText value="#{usuarioMB.animal.ani_especie}" />
+						<br></br>
+						<h:outputLabel value="Idade:" />
+						<h:inputText value="#{usuarioMB.animal.ani_idade}" />
+						<br></br>
+						<h:outputLabel value="Porte:" />
+						<h:selectOneMenu value="#{usuarioMB.animal.ani_porte}" >
+						<f:selectItem itemValue="Pequeno" itemLabel="Pequeno"/>
+						<f:selectItem itemValue="Médio" itemLabel="Médio"/>
+						<f:selectItem itemValue="Grande" itemLabel="Grande"/>
+						</h:selectOneMenu>
+						<br></br>
+						<h:outputLabel value="Peso:" />
+						<h:inputText value="#{usuarioMB.animal.ani_peso}" />
+						<br></br> -->
+						<h:commandButton value="Enviar" class="bt-enviar"
+							actionListener="#{usuarioMB.cadastrar}" />
+						<br></br>
+					</h:form>
+				</div>
+				<!-- Fim do Bloco  -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="/template/right.xhtml" />
+
+
+
+		</div>
+		<ui:include src="/template/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

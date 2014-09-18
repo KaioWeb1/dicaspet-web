@@ -1,0 +1,42 @@
+package com.dicaspet.controlador;
+
+import java.util.List;
+
+import com.dicaspet.entidade.PrestadorServico;
+import com.dicaspet.repositorio.RepositorioPrestadorServico;
+
+public class ControladorPrestadorServico {
+
+	private RepositorioPrestadorServico rep;
+
+	public ControladorPrestadorServico(RepositorioPrestadorServico rep) {
+		this.rep = rep;
+	}
+
+	public void cadastrar(PrestadorServico novo) {
+
+		rep.inserir(novo);
+	}
+
+	public void atualizar(PrestadorServico atual) {
+
+		rep.atualizar(atual);
+	}
+
+	public void remover(PrestadorServico deletado) {
+		rep.remover(deletado);
+	}
+
+	public List<PrestadorServico> listar() {
+		return rep.listar();
+	}
+
+	public List<PrestadorServico> buscaNome(String nome) {
+		return rep.buscarNome(nome);
+	}
+
+	public PrestadorServico buscarPrestadorServico(Long id) {
+		return rep.buscarPrestadorServico(id);
+	}
+
+}

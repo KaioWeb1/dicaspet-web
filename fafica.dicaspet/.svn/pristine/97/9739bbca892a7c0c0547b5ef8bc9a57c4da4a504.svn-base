@@ -1,0 +1,155 @@
+package com.dicaspet.MB;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import com.dicaspet.entidade.Mensagem;
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.Constants;
+import com.dicaspet.util.FacesContextUtil;
+
+@ManagedBean(name="mensagemMB")
+@SessionScoped
+public class MensagemMB {
+
+	private Usuario usuarioMSG;
+    private Mensagem mensagem;
+	private Fachada fachada;
+	private List<Mensagem> mensagens;
+	private List<Mensagem> ultimasMSG;
+	
+
+	public MensagemMB() {
+
+		usuarioMSG = new Usuario();
+		mensagem = new Mensagem();
+		fachada = Fachada.getInstance();
+	}
+
+	public Mensagem getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(Mensagem mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Mensagem> getMensagems() {
+		if (mensagens == null) {
+			try {
+				mensagens = fachada.controladorMensagem().listar();
+			} catch (Exception e) {
+				mensagens = new ArrayList<Mensagem>();
+				for (Mensagem m : mensagens) {
+					System.out.println(m.getMsg_titulo());
+				}
+			}
+		}
+
+		return mensagens;
+	}
+
+	public void setMensagems(List<Mensagem> mensagems) {
+		this.mensagens = mensagems;
+	}
+
+	public void cadastrarPergunta() {
+	
+		mensagem.setMsg_data_cadastro(new Date());
+		mensagem.setMsg_isPergunta(true);
+		mensagem.setMsg_status(Constants.ATIVO);
+		Usuario usuario = (Usuario) FacesContextUtil.getSessionAttribute("usuario");
+		mensagem.setMsg_id_usu(usuario);
+		
+		fachada.controladorMensagem().cadastrar(mensagem);
+//		FacesMessage message;
+//
+//		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+//				"O mensagem " + mensagem.getUsu_nome()
+//						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	public void cadastrarResposta() {
+
+		
+		mensagem.setMsg_data_cadastro(new Date());
+		mensagem.setMsg_isPergunta(false);
+		mensagem.setMsg_status(Constants.ATIVO);
+		Usuario usuario = (Usuario) FacesContextUtil.getSessionAttribute("usuario");
+		mensagem.setMsg_id_usu(usuario);
+		
+		fachada.controladorMensagem().cadastrar(mensagem);
+//		FacesMessage message;
+//
+//		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+//				"O mensagem " + mensagem.getUsu_nome()
+//						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	public String responderMSG(Mensagem msg){
+		
+		mensagem = msg;
+		
+		usuarioMSG = mensagem.getMsg_id_usu();
+
+		
+		return "resposta?faces-redirect=true";
+		
+	}
+	
+	public List<Mensagem> getMensagens() {
+		return mensagens;
+	}
+
+	public void setMensagens(List<Mensagem> mensagens) {
+		this.mensagens = mensagens;
+	}
+
+	public List<Mensagem> getUltimasMSG() {
+		
+		if (ultimasMSG == null) {
+			try {
+				ultimasMSG = fachada.controladorMensagem().listarRecente();
+			} catch (Exception e) {
+				ultimasMSG = new ArrayList<Mensagem>();
+			}
+		}
+
+		
+		return ultimasMSG;
+		
+	}
+
+	public void setUltimasMSG(List<Mensagem> ultimasMSG) {
+		this.ultimasMSG = ultimasMSG;
+	}
+
+	private void limpar(){
+		mensagem = new Mensagem();
+		mensagens = null;
+	}
+
+	public Usuario getUsuarioMSG() {
+		return usuarioMSG;
+	}
+
+	public void setUsuarioMSG(Usuario usuarioMSG) {
+		this.usuarioMSG = usuarioMSG;
+	}
+
+}

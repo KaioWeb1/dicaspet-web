@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+
+	<ui:composition>
+		<div class="left">
+				<h:panelGroup layout="block" class="login" rendered="#{usuarioMB.user.ativo}">
+						<h3>Entrar no DicasPet</h3>
+						<br />
+						<h:form id="form_autenticar">
+						<label>Email:</label>
+						<h:inputText value="#{usuarioMB.user.usu_email}" /><br /> <br /> 
+						<label>Senha:</label>
+						<h:inputSecret value="#{usuarioMB.user.usu_senha}" /><br /> <br />
+						<div class="bt-logar">
+							<h:commandButton value="Entrar" 
+							action="#{usuarioMB.autenticar}" />
+							<p>Clicar em entrar para acessar o protótipo interno do
+								sistema</p>
+						</div>
+					</h:form>
+					
+					 <div class="link-cad">
+						<p>Editar usuario</p>
+						<br/> <a href="cadastro.xhtml">Cadastre-se</a> <br/> <br/>
+						
+					</div>
+					<div class="duvidas-frequentes">
+						<h3>Dúvidas Frequentes</h3>
+						<ul class="duvidas-lista">
+							<li><a href="#">Como se cadastrar?</a></li>
+							<li><a href="#">Como entrar no DicasPet?</a></li>
+							<li><a href="#">Como Fazer uma Pergunta?</a></li>
+							<li><a href="#">Como responder uma pergunta?</a></li>
+							<li><a href="#">Como encontrar um serviço?</a></li>
+						</ul>
+					</div>
+				</h:panelGroup>
+				
+					<h:panelGroup class="usuario" rendered="#{!usuarioMB.user.ativo}">
+
+						<h:graphicImage library="images" name="user.jpg"/>
+						<h3><h:outputLabel value="#{usuarioMB.user.usu_nome}"/></h3>
+						<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+						<h:form>
+						<h:commandButton value="Sair" class="bt-logoff" action="#{usuarioMB.logoff}"/>
+						</h:form>
+						<div class="my-rank">
+						<p>Posição atual</p>
+						<h:graphicImage library="images/rank" name="prata.png"/>
+						<a href="#">2º Lugar</a>
+												
+						</div>
+					<ul class="my-menu">
+							<li><a href="lista-prestador.xhtml"><img alt="" src=""/>Listar Empresas</a></li>
+							<li><a href="lista-servicos.xhtml"><img alt="" src=""/>Listar Serviços</a></li>
+							<li><a href="lista-usuarios.xhtml"><img alt="" src=""/>Listar Usuários</a></li>							
+						</ul>
+
+					</h:panelGroup>
+			</div>
+	</ui:composition>
+</body>
+</html>

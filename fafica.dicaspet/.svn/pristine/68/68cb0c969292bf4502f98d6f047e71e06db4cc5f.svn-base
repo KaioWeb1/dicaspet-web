@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+<title>DicasPet - Celtic Solutions</title>
+
+
+</h:head>
+<h:body>
+<h:outputStylesheet library="css" name="style.css"/>
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<ui:include src="template-admin/left-admin.xhtml" />
+				<div class="center">
+								
+					<!-- aqui é onde fica o conteúdo -->
+				<!-- aqui é onde fica o conteúdo -->
+					<div class="bloco-empresa">
+						<h3>Lista Serviços</h3>
+					<!-- 	
+						<ul class="my-menu-lista">
+						
+							<li><a href="/fafica.dicaspet/admin/cadastro-animal.xhtml">Cadastrar Serviço</a></li>
+							<li><a href="/fafica.dicaspet/admin/editar-animal.xhtml">Editar Serviço</a></li>
+							<li><a href="#">Excluir Serviço</a></li>							
+						</ul>
+ 					-->	
+					<br></br>
+					<br></br>
+					<div class="pergunta">
+						<div class="link-resposta"><a href="../cadastro.xhtml">Cadastrar usuário</a></div>
+					</div>
+					
+					<br></br>
+					<br />
+					<h:form id="listaUsuariosAdm">
+						<p:dataTable id="checkboxDT" var="animal"
+							value="#{usuarioMB.usuarios}"
+							selection="#{usuarioMB.usuariosSelecionados}" rowKey="#{animal.usu_id}"
+							style="margin-bottom:0" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" >
+							<f:facet name="header">
+          Usuarios
+                            </f:facet>
+							<p:column selectionMode="multiple"
+								style="width:10%;text-align:center" />
+							<p:column headerText="Nome">
+								<h:outputText value="#{animal.usu_nome}" />
+							</p:column>
+							<p:column headerText="E-mail">
+								<h:outputText value="#{animal.usu_email}" />
+							</p:column>
+							<p:column headerText="Nivel de acesso">
+								<h:outputText value="#{animal.usu_nivel_acesso}" />
+							</p:column>
+							
+							<f:facet name="footer">
+							
+							<!--  -->
+								<p:commandButton process="checkboxDT"
+									 icon="ui-icon-search"
+									value="Detalhes" oncomplete="PF('multiCarDialog').show()" update=":listaUsuariosAdm:multiUsuarioDetalhe" />
+							</f:facet>
+						</p:dataTable>
+
+						<p:dialog header="Informações do usuario" widgetVar="carDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="carDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty usuarioMB.usuarioSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage
+											name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
+									</f:facet>
+
+									<h:outputText value="Id:" />
+									<h:outputText value="#{usuarioMB.usuarioSelecionado.usu_id}" />
+
+									<h:outputText value="Nome" />
+									<h:outputText value="#{usuarioMB.usuarioSelecionado.usu_nome}" />
+
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Usuarios selecionados" widgetVar="multiCarDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false" width="400">
+							<p:outputPanel id="multiUsuarioDetalhe" style="text-align:center;">
+								<ui:repeat value="#{usuarioMB.usuariosSelecionados}" var="car">
+									<h:outputText value="#{car.usu_id} - #{car.usu_nome}"
+										style="display:block" />
+										<h:commandButton value="Deletar" action="#{usuarioMB.deletar(car)}" update="checkboxDT"/>
+										<h:commandButton value="Editar" action="#{usuarioMB.editarUsuarioRedirect(car)}" />
+								</ui:repeat>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+
+
+				</div>
+					<!-- Fim do Bloco -->
+
+					<div class="banner">
+						<h3>Publicidade</h3>
+						<img alt="" src="../images/banner1.jpg" />
+					</div>
+
+
+
+
+
+				</div>
+				<ui:include src="template-admin/right.xhtml" />
+
+	<div class="clr"></div>
+		</div>
+	
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

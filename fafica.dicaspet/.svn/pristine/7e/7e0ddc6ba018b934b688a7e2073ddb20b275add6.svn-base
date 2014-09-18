@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+<title>DicasPet - Celtic Solutions</title>
+<script type="text/javascript">
+
+function repor(){
+	alert("Reposição realizada com sucesso!");
+}
+
+</script>
+</h:head>
+<body>
+<h:outputStylesheet library="css" name="style.css"/>
+
+	<div class="wrapper">
+		<div class="header">
+			<div class="topo">
+				
+					<div class="logo">
+						<img src="../images/logodicaspet.png" class="img-logo"/>
+
+					</div>
+					<div class="menu">
+						<ul class="ul-menu">
+							<li><a href="../index.xhtml">Home</a></li>
+							<li><a href="../servicos.xhtml">Serviços</a></li>
+							<li><a href="../perguntas.xhtml">Perguntas e Respostas</a></li>
+							<li><a href="../contato.xhtml">Contato</a></li>
+						</ul>
+					</div>
+					<div class="busca">
+						<ul>
+							<li><input type="text" value="Procurar..."/><input
+								type="submit" value="ok"/><img src=""/></li>
+						</ul>
+					</div>
+	
+			</div>
+
+		</div>
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<div class="left">
+					<div class="usuario">
+
+						<img alt="" src="../images/user.jpg"/>
+						<h3><h:outputLabel value="#{usuarioMB.user.usu_nome}"/></h3>
+						<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+						<h:form>
+						<h:commandButton value="Sair" class="bt-logoff" action="#{usuarioMB.logoff}"/>
+						</h:form>
+						<div class="my-rank">
+						<p>Posição atual</p>
+						<img alt="" src="../images/rank/prata.png"/>
+						<a href="#">2º Lugar</a>
+												
+						</div>
+						<ul class="my-menu">
+							<li><a href="/fafica.dicaspet/admin/usuario.xhtml"><img alt="" src="../images/icones/user.jpg"/>Meu Perfil</a></li>
+							<li><a href="/fafica.dicaspet/admin/cadastro-animal.xhtml"><img alt="" src="../images/icones/logodicaspet.png"/>Cadastrar Pet</a></li>
+							<li><a href="#"><img alt="" src="../images/icones/logodicaspet.png"/>Meus Pets</a></li>
+							<li><a href="#"><img alt="" src="../images/icones/Podium-icon.png"/>Ranking</a></li>							
+						</ul>
+
+					</div>
+
+				</div>
+				<div class="center">
+								
+					<!-- aqui é onde fica o conteúdo -->
+				<!-- aqui é onde fica o conteúdo -->
+					<div class="bloco-empresa">
+						<h3>Meus pets</h3>
+							
+						<ul class="my-menu-lista">
+						
+							<li><a href="/fafica.dicaspet/admin/cadastro-animal.xhtml">Cadastrar Pet</a></li>
+							<li><a href="#">Editar Pet</a></li>
+							<li><a href="#">Excluir Pet</a></li>							
+						</ul>
+						
+						<div class="animal">
+							<div class="select"><input type="checkbox"/></div>
+							<div class="img-animal"><img src="../images/meu_amigo_pet.jpg" alt="" /></div>
+							<div class="nome-animal">Nome do ANIMAL</div>
+							<div class="link-detalhes"><a href="/fafica.dicaspet/admin/animal.xhtml">Detalhes</a></div>
+							
+						</div>
+						
+					</div>
+					<!-- Fim do Bloco -->
+
+					<div class="banner">
+						<h3>Publicidade</h3>
+						<img alt="" src="../images/banner1.jpg" />
+					</div>
+
+
+
+
+
+				</div>
+				<div class="right">
+
+					<div class="banner">
+						<h3>Adote um Pet</h3>
+						<a href="adotar.xhtml"><img alt=""
+							src="../images/adote-um-melhor-amigo-1.jpg" /></a>
+					</div>
+
+					<div class="ranking-user">
+						<h3>Ranking de Usuários</h3>
+
+						<div class="rank-item">
+							<img alt="" src="../images/rank/ouro.png"/> - <a href="#">Jão
+								da Silva - 10429 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="../images/rank/prata.png"/> - <a href="#">Fulano
+								Santos - 8291 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="../images/rank/bronze.png"/> - <a href="#">Zé
+								Maria - 6029 pontos</a>
+						</div>
+
+
+
+					</div>
+					<div class="ranking-serv">
+						<h3>Ranking de Serviços</h3>
+
+						<div class="rank-item">
+							<img alt="" src="../images/rank/ouro.png"/> - <a href="#">PetShow - 4920 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="../images/rank/prata.png"/> - <a href="#">Animal
+								Pet - 3202 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="../images/rank/bronze.png"/> - <a href="#">Bicho
+								Amigo - 2390 pontos</a>
+						</div>
+
+
+
+
+					</div>
+				</div>
+
+
+		</div>
+		<div class="footer">
+			<div class="rodape">
+
+					<div class="institucional">
+						<p>Todos os Direitos Reservados à CELTIC Solutions - 2014</p>
+					</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

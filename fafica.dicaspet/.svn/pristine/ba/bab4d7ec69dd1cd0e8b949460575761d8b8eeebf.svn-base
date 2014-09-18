@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+<title>DicasPet - Celtic Solutions</title>
+<h:outputStylesheet library="css" name="style.css"/>
+<script type="text/javascript"></script>
+</h:head>
+<body>
+
+
+	<div class="wrapper">
+		
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<ui:include src="template-admin/left-admin.xhtml" />
+				<div class="center">
+								
+				<!-- Conteúdo Admin -->
+
+				</div>
+				
+				<ui:include src="template-admin/right.xhtml" />
+
+		</div>
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</body>
+</html>

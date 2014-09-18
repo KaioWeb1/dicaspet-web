@@ -1,0 +1,140 @@
+package com.dicaspet.MB;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesContextUtil;
+
+@ManagedBean(name="usuarioMB")
+@SessionScoped
+public class UsuarioMB {
+
+    private Animal animal;
+	private Usuario usuario;
+	private Fachada fachada;
+	private Usuario user;
+	private List<Usuario> usuarios;
+
+	public UsuarioMB() {
+        user = new Usuario();
+        user.setAtivo(true);
+        
+        animal = new Animal();
+		
+		usuario = new Usuario();
+		fachada = Fachada.getInstance();
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Usuario> getUsuarios() {
+		if (usuarios == null) {
+			try {
+				usuarios = fachada.controladorUsuario().listar();
+			} catch (Exception e) {
+				usuarios = new ArrayList<Usuario>();
+			}
+		}
+
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public void cadastrar() {
+		
+		// cadastrar o usu·rio
+		// recuperar o usuario da base (com o id)
+		// atualizar o objeto do usu·rio no objeto animal
+		// cadasrar animal
+	usuario.setAtivo(true);
+		fachada.controladorUsuario().cadastrar(usuario);
+		
+		FacesContextUtil.setMessageInformacao("info", "Cadastrado com sucesso.");
+limpar();
+	
+	}
+	
+	public void autenticar(){
+		try {
+			user = fachada.controladorUsuario().logar(user.getUsu_email(), user.getUsu_senha());
+		} catch (Exception e) {
+			System.out.println("usuario invalido");
+			e.printStackTrace();
+		}
+		
+		System.out.println(user.getUsu_nome());
+		if(user==null){
+//			FacesContextUtil.setMessageErro("Login e/ou Senha inv√°lido",
+//					"Login e/ou Senha inv√°lidos!");
+			limpar();
+		}else{
+			user.setAtivo(false);
+			try {
+				FacesContextUtil.setSessionAttribute("usuario", user);
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/fafica.dicaspet/admin/usuario.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		
+		
+	}
+	
+	public String logoff(){
+		FacesContextUtil.setSessionAttribute("usuario", null);
+		FacesContextUtil.logout();
+		System.out.println("Saiu");
+		return "index?faces-redirect=true";
+	}
+	
+	
+	private void limpar(){
+		usuario = new Usuario();
+		user = new Usuario();
+		
+	}
+
+	public Usuario getUser() {
+		return user;
+	}
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+
+	public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
+
+}

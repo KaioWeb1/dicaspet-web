@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>DicasPet- Serviços - Celtic Solutions</title>
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<div class="header">
+			<div class="topo">
+
+				<div class="logo">
+					<img src="images/logodicaspet.png" class="img-logo" />
+
+				</div>
+				<div class="menu">
+					<ul class="ul-menu">
+						<li><a href="index.xhtml">Home</a></li>
+						<li><a href="servicos.xhtml">Serviços</a></li>
+						<li><a href="perguntas.xhtml">Perguntas e Respostas</a></li>
+						<li><a href="contato.xhtml">Contato</a></li>
+					</ul>
+				</div>
+				<div class="busca">
+					<ul>
+						<li><input type="text" value="Procurar..." /><input
+							type="submit" value="ok" /><img src="" /></li>
+					</ul>
+				</div>
+
+
+			</div>
+
+		</div>
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<div class="left">
+				<h:panelGroup layout="block" class="login" rendered="#{usuarioMB.user.ativo}">
+						<h3>Entrar no DicasPet</h3>
+						<br />
+						<h:form id="form_autenticar">
+						<label>Email:</label>
+						<h:inputText value="#{usuarioMB.user.usu_email}" /><br /> <br /> 
+						<label>Senha:</label>
+						<h:inputSecret value="#{usuarioMB.user.usu_senha}" /><br /> <br />
+						<div class="bt-logar">
+							<h:commandButton value="Entrar" 
+							action="#{usuarioMB.autenticar}" />
+							<p>Clicar em entrar para acessar o protótipo interno do
+								sistema</p>
+						</div>
+					</h:form>
+					
+					 <div class="link-cad">
+						<p>Venha fazer parte dessa comunidade!</p>
+						<br/> <a href="cadastro.xhtml">Cadastre-se</a> <br/> <br/>
+						<div class="aut-facebook">
+							<a href=""><img alt="" src="images/icones/botao_fb.png"/></a>
+						</div>
+					</div>
+					<div class="duvidas-frequentes">
+						<h3>Dúvidas Frequentes</h3>
+						<ul class="duvidas-lista">
+							<li><a href="#">Como se cadastrar?</a></li>
+							<li><a href="#">Como entrar no DicasPet?</a></li>
+							<li><a href="#">Como Fazer uma Pergunta?</a></li>
+							<li><a href="#">Como responder uma pergunta?</a></li>
+							<li><a href="#">Como encontrar um serviço?</a></li>
+						</ul>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup class="usuario" rendered="#{!usuarioMB.user.ativo}">
+
+						<h:graphicImage library="images" name="user.jpg"/>
+						<h3><h:outputLabel value="#{usuarioMB.user.usu_nome}"/></h3>
+						<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+						<h:form>
+						<h:commandButton value="Sair" class="bt-logoff" action="#{usuarioMB.logoff}"/>
+						</h:form>
+						<div class="my-rank">
+						<p>Posição atual</p>
+						<h:graphicImage library="images/rank" name="prata.png"/>
+						<a href="#">2º Lugar</a>
+												
+						</div>
+						<ul class="my-menu">
+							<li><a href="admin/usuario.xhtml"><h:graphicImage library="images/icones" name="user.jpg"/>Meu Perfil</a></li>
+							<li><a href="admin/lista-animal.xhtml"><h:graphicImage library="images/icones" name="logodicaspet.png"/>Meu Pets</a></li>
+							<li><a href="admin/ranking-user.xhtml"><h:graphicImage library="images/icones" name="Podium-icon.png"/>Ranking</a></li>							
+						</ul>
+
+					</h:panelGroup>
+			</div>
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+					<h3>Conhecendo Servicos no DicasPet</h3>
+					<div class="foto-empresa">
+						<img alt="" src="images/user.jpg" />
+
+					</div>
+
+					<div class="desc-empresa">
+						<h2>PetShow</h2>
+						<br /> <br /> <br />Empresa da cidade de Salvador, fundada em 1980
+						ainda hoje funciona, com uma enorme cartela de clientes e empresas
+						Prestamos serviços de banho, tosa e etc;
+						<p class="dados-empresa">
+							Rua dos Ferroviários, 8 E - São João do Cabrito Salvador - BA<br />
+							Email: <a href="#">contato@petshow.com.br</a><br /> Site: <a
+								href="#">www.petshow.com.br</a><br /> Telefone: (85) 3041-3919<br />
+						</p>
+					</div>
+					<div class="solicitar">
+						<h3>Solicitar serviço da empresa</h3>
+						<h:form>
+							
+							<p>Quando?</p>
+							
+      						 <p:calendar id="datetime" value="#{prestadorServicoMB.date10}" pattern="MM/dd/yyyy HH:mm:ss" />
+							
+							<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+								<h:outputText value="#{prestadorServicoMB.date10}">
+								<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+							</h:outputText>
+							</p:dialog>
+							
+							<p>Serviço desejado:</p>
+							<select>
+								<option value="Banho">Banho</option>
+								<option value="Tosa">Tosa</option>
+								<option value="Vacinacao">Vacinação</option>
+								<option value="EscovaDentes">Escovação de dentes</option>
+
+							</select>
+							<input type="submit" value="Solicitar" />
+							<br />
+							<br />
+								
+						</h:form>
+
+
+
+
+					</div>
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3887.701423343127!2d-38.445043999999996!3d-12.990938999999997!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7161b0bb854cc0f%3A0x353449e540f06356!2sA+PET+SHOP+PET+SHOW!5e0!3m2!1spt-BR!2sbr!4v1398460081659"
+						width="600" height="450" frameborder="0" style="border: 0"></iframe>
+
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<div class="right">
+
+				<div class="banner">
+					<h3>Adote um Pet</h3>
+					<a href="admin/adotar.xhtml"><img alt=""
+						src="images/adote-um-melhor-amigo-1.jpg" /></a>
+				</div>
+				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+					<ui:repeat var="usuario" value="#{rankingMB.usuarios}">
+
+						<div class="rank-item">
+							<img alt="" src="images/rank/ouro.png" />
+							<h:outputText value="#{usuario.usu_nome}" />
+							-
+							<h:outputText value="#{usuario.usu_pontuacao}" />
+							pontos
+						</div>
+
+					</ui:repeat>
+				</div>
+
+
+				<div class="ranking-serv">
+					<h3>Ranking de Serviços</h3>
+					<ui:repeat var="servico" value="#{rankingMB.servicos}">
+
+						<div class="rank-item">
+							<img alt="" src="images/rank/ouro.png" />
+							<h:outputText value="#{servico.srv_descricao}" />
+							-
+							<h:outputText value="#{servico.srv_pontuacao}" />
+							pontos
+						</div>
+
+					</ui:repeat>
+				</div>
+
+				<div id="verifica-peso" class="verifica-peso">
+					<h3>Verificar o Peso Ideal do cachorro</h3>
+					<h:form>
+						<br />
+						<h:inputText value="#{pesoIdealMB.pesoAtual}" />
+						<br /><br />
+						<h:selectOneMenu value="#{pesoIdealMB.porte}">
+							<f:selectItem itemValue="pequeno" itemLabel="Pequeno" />
+							<f:selectItem itemValue="medio" itemLabel="Medio" />
+							<f:selectItem itemValue="grande" itemLabel="Grande" />
+						</h:selectOneMenu>
+						<br /><br />
+						<h:selectOneMenu value="#{pesoIdealMB.sexo}">
+							<f:selectItem itemValue="femea" itemLabel="Femea" />
+							<f:selectItem itemValue="macho" itemLabel="Macho" />
+						</h:selectOneMenu>
+						<br /><br />
+						<h:commandButton value="Calcular"
+							action="#{pesoIdealMB.calcularPesoIdeal}"  />
+					</h:form>
+					<br />
+					<p class="msg-peso"><h:outputText value="#{pesoIdealMB.msg}" /></p>
+
+				</div>
+				<!-- 				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">Jão
+							da Silva - 10429 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Fulano
+							Santos - 8291 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Zé
+							Maria - 6029 pontos</a>
+					</div>
+
+
+
+				</div>
+				<div class="ranking-serv">
+					<h3>Ranking de Serviços</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">PetShow
+							- 4920 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Animal
+							Pet - 3202 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Bicho
+							Amigo - 2390 pontos</a>
+					</div>
+
+
+
+
+				</div> -->
+			</div>
+
+		</div>
+		<div class="footer">
+			<div class="rodape">
+
+				<div class="institucional">
+					<p>Todos os Direitos Reservados à CELTIC Solutions - 2014</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>

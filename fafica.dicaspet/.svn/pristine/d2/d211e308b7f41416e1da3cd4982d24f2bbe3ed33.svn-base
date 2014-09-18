@@ -1,0 +1,157 @@
+package com.dicaspet.MB;
+
+import java.util.List;
+import java.util.Locale;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import com.dicaspet.entidade.Servico;
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesMessageUtil;
+
+@ManagedBean
+@SessionScoped
+public class ServicoMB {
+
+	private Servico servico;
+	private Fachada fachada;
+
+	private Servico servicoSelecionado;
+	private List<Servico> servicosSelecionados;
+	private List<Servico> servicosFiltrados;
+	private Usuario prestador;
+
+	public ServicoMB() {
+        prestador = new Usuario();
+		servico = new Servico();
+		fachada = Fachada.getInstance();
+	}
+
+	public Servico getServico() {
+		return servico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+	
+	public List<Servico> getServicos() {
+
+	return fachada.controladorServico().listar();
+}
+
+	public void cadastrar() {
+
+		fachada.controladorServico().cadastrar(servico);
+		FacesMessage message = FacesMessageUtil.criarMensagemInfo(
+				"Cadastrado com Sucesso!",
+				"O servico " + servico.getSrv_descricao()
+						+ " foi cadastrado com sucesso.");
+
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		limpar();
+	}
+
+	private void limpar() {
+		servico = new Servico();
+		getServicos();
+	}
+
+//	public void onRowSelect(SelectEvent event) {
+//		FacesMessage msg = new FacesMessage("Serviço selecionado",
+//				((Servico) event.getObject()).getSrv_id_string());
+//		FacesContext.getCurrentInstance().addMessage(null, msg);
+//	}
+//
+//	public void onRowUnselect(UnselectEvent event) {
+//		FacesMessage msg = new FacesMessage("Serviço desselecionado",
+//				((Servico) event.getObject()).getSrv_id_string());
+//		FacesContext.getCurrentInstance().addMessage(null, msg);
+//	}
+
+	public Servico getServicoSelecionado() {
+		return servicoSelecionado;
+	}
+
+	public void setServicoSelecionado(Servico servicoSelecionado) {
+		this.servicoSelecionado = servicoSelecionado;
+	}
+
+	public List<Servico> getServicosSelecionados() {
+		return servicosSelecionados;
+	}
+
+	public void setServicosSelecionados(List<Servico> servicosSelecionados) {
+		this.servicosSelecionados = servicosSelecionados;
+	}
+
+	public String editarServicoRedirect(Servico servico) {
+
+		this.servico = servico;
+
+		return "editar-servico?faces-redirect=true";
+		//FacesContext.getCurrentInstance().getExternalContext().redirect("/fafica.dicaspet/admin/editar-servico.xhtml");
+
+	}
+
+	public void editar() {
+
+		fachada.controladorServico().atualizar(servico);
+		FacesMessage message = FacesMessageUtil.criarMensagemInfo(
+				"Editado com Sucesso!",
+				"O serviço " + servico.getSrv_descricao()
+						+ " foi editado com sucesso.");
+
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		servico = new Servico();
+	}
+
+	public void deletar(Servico servico) {
+
+		fachada.controladorServico().remover(servico);
+		
+	}
+
+	public List<Servico> getServicosFiltrados() {
+		return servicosFiltrados;
+	}
+
+	public void setServicosFiltrados(List<Servico> servicosFiltrados) {
+		this.servicosFiltrados = servicosFiltrados;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean filterByPrice(Object value, Object filter, Locale locale) {
+		String filterText = (filter == null) ? null : filter.toString().trim();
+		if (filterText == null || filterText.equals("")) {
+			return true;
+		}
+
+		if (value == null) {
+			return false;
+		}
+
+		return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
+	}
+
+	public String redirectPerfilServico(Servico s) {
+		
+		prestador=s.getSrv_id_prtsrv();
+		
+		
+		return "empresa?faces-redirect=true";
+	}
+
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	
+</h:head>
+<body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-usuario.xhtml" />
+			<div class="center">
+
+				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+					<h:form id="form">
+						<p:dataList value="#{rankingMB.rankingUserFull}" var="car"
+							type="unordered" itemType="none" paginator="true" rows="10"
+							styleClass="paginated">
+<!-- 							<f:facet name="header">
+            Paginator
+        </f:facet> -->
+							<p:commandLink update=":form:carDetail"
+								oncomplete="PF('carDialog').show()" title="View Detail"
+								styleClass="ui-icon ui-icon-search"
+								style="float:left;margin-right:10px">
+								<f:setPropertyActionListener value="#{car}"
+									target="#{rankingMB.usuarioSelecionado}" />
+								<h:outputText value="#{car.usu_nome}, #{car.usu_pontuacao}" />
+							</p:commandLink>
+							<h:outputText value="#{car.usu_nome}, #{car.usu_pontuacao}"
+								style="display:inline-block" />
+						</p:dataList>
+
+						<p:dialog header="Info Usuario" widgetVar="carDialog" modal="true"
+							showEffect="blind" hideEffect="explode" resizable="false">
+							<p:outputPanel id="carDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty rankingMB.usuarioSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage
+											name="demo/images/car/#{dataListView.selectedCar.brand}-big.gif" />
+									</f:facet>
+
+									<h:outputText value="Nome:" />
+									<h:outputText value="#{rankingMB.usuarioSelecionado.usu_nome}"/>
+
+									<h:outputText value="Pontuação" />
+									<h:outputText value="#{rankingMB.usuarioSelecionado.usu_pontuacao}" />
+									
+									<h:outputText value="E-mail" />
+									<h:outputText value="#{rankingMB.usuarioSelecionado.usu_email}" />
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+
+
+</div>
+				</div>
+				<ui:include src="template-admin/right.xhtml" />
+
+			</div>
+			<ui:include src="template-admin/footer.xhtml" />
+		</div>
+</body>
+</html>

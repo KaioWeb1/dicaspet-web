@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-prestador.xhtml" />
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-contato">
+					<h3>Editando Serviço DicasPet</h3>
+					<h:form id="form_cadastro_usuario">
+						<h:messages errorStyle="color: red" infoStyle="color: yellow"
+							warnStyle="color: orange" fatalStyle="color: gray"
+							showDetail="true" showSummary="false" />
+						
+						<h:outputLabel value="Nome do Serviço:" />
+						<h:inputText value="" />
+						<br /><br />
+						
+						<h:outputLabel value="Categoria do Serviço:" />
+						<h:selectOneMenu>
+						   <f:selectItem itemValue="1" itemLabel="Hotéis" />
+						   <f:selectItem itemValue="2" itemLabel="Canil" />
+						   <f:selectItem itemValue="3" itemLabel="Petshop" />
+						   <f:selectItem itemValue="4" itemLabel="Clinicas Veterinárias" />
+						   <f:selectItem itemValue="5" itemLabel="Adestradores" />	   							
+						</h:selectOneMenu>			
+						<br /><br />
+						<h:outputLabel value="Preço :" />
+						<h:inputText value="" />
+						<br></br>
+						
+						<h:commandButton value="Enviar" class="bt-enviar"
+							actionListener="#{animalMB.cadastrar}" />
+						<br></br>
+
+					</h:form>
+				</div>
+				<!-- Fim do Bloco  -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+
+
+
+		</div>
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

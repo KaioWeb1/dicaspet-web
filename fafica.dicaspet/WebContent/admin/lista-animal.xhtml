@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+	
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<ui:include src="template-admin/left-usuario.xhtml" />
+				
+			<div class="center">
+	
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+				
+				
+					<h3>Meus pets</h3>
+					<br></br>
+					<br></br>
+					<div class="pergunta">
+						<div class="link-resposta"><a href="cadastro-animal.xhtml">Cadastrar animal</a></div>
+					</div>
+					
+					<br></br>
+					<br />
+					<h:form id="meusPets">
+						<p:dataTable id="listAnimalDT" var="animal"
+							value="#{usuarioMB.meusPets}"
+							selection="#{usuarioMB.animaisSelecionados}" rowKey="#{animal.ani_id}"
+							style="margin-bottom:0">
+							<f:facet name="header">
+          Meus Pets
+                            </f:facet>
+							<p:column selectionMode="multiple"
+								style="width:10%;text-align:center" />
+							<p:column headerText="Nome">
+								<h:outputText value="#{animal.ani_nome}" />
+							</p:column>
+							<p:column headerText="Especie">
+								<h:outputText value="#{animal.ani_especie}" />
+							</p:column>
+							<p:column headerText="Raça">
+								<h:outputText value="#{animal.ani_raca}" />
+							</p:column>
+							<p:column headerText="Porte">
+								<h:outputText value="#{animal.ani_porte}" />
+							</p:column>
+							<f:facet name="footer">
+							
+							<!--  -->
+								<p:commandButton process="listAnimalDT"
+									 icon="ui-icon-search"
+									value="Detalhes" oncomplete="PF('multiCarDialog').show()" update=":meusPets:multiAnimalDetalhe" />
+							</f:facet>
+						</p:dataTable>
+
+						<p:dialog header="Informações do animal" widgetVar="carDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="carDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty usuarioMB.animalSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage
+											name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
+									</f:facet>
+
+									<h:outputText value="Id:" />
+									<h:outputText value="#{usuarioMB.animalSelecionado.ani_id}" />
+
+									<h:outputText value="Idade" />
+									<h:outputText value="#{usuarioMB.animalSelecionado.ani_idade}" />
+
+									<h:outputText value="Peso" />
+									<h:outputText value="$#{usuarioMB.animalSelecionado.ani_peso}" />
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Animais selecionados" widgetVar="multiCarDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false" width="400">
+							<p:outputPanel id="multiAnimalDetalhe" style="text-align:center;">
+								<ui:repeat value="#{usuarioMB.animaisSelecionados}" var="car">
+									<h:outputText value="#{car.ani_id} - #{car.ani_nome}"
+										style="display:block" />
+										<h:commandButton value="Deletar" action="#{animalMB.deletar(car)}" />
+										<h:commandButton value="Editar" action="#{animalMB.editarAnimalRedirect(car)}" />
+										<h:commandButton value="Perfil" action="#{animalMB.perfilAnimalRedirect(car)}" />
+								</ui:repeat>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+
+
+			<div class="clr"></div>
+		</div>
+
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

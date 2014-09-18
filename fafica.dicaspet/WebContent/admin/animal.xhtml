@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet - Celtic Solutions</title>
+
+</h:head>
+<body>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+				<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="template-admin/left-usuario.xhtml" />
+			<div class="center">
+
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+					<h3>Perfil do animal</h3>
+					<div class="foto-empresa">
+					<!-- 	<img alt="" src="../images/meu_amigo_pet.jpg" />  -->
+					
+					<p:graphicImage value="#{animalMB.animal.ani_foto}"/>
+
+					</div>
+
+					<div class="desc-empresa">
+						<h2>
+							<h:outputText value="#{animalMB.animal.ani_nome}" />
+						</h2>
+						<br />
+
+						<p class="dados-empresa">
+							Espécie:
+							<h:outputText value="#{animalMB.animal.ani_especie}" />
+							<br />
+							<br /> Peso:
+							<h:outputText value="#{animalMB.animal.ani_peso}" />
+							<br />
+							<br /> Raça:
+							<h:outputText value="#{animalMB.animal.ani_raca}" />
+							<br />
+							<br /> Quantidade necessária de comida diaria:
+							<h:outputText value="#{animalMB.animal.ani_qtdInicAlimento}" />
+							<br />
+							<br /> Quantidade máxima de comida diaria recomendada:
+							<h:outputText value="#{animalMB.animal.ani_qtdFimAlimento}" />
+							<br />
+
+						</p>
+					</div>
+					<h:panelGroup class="pergunta"
+						rendered="#{AnimalMB.animal.ani_status_animal}">
+						<div class="link-resposta">
+							<a href="#">ADOTAR</a>
+						</div>
+					</h:panelGroup>
+
+					<div class="Grafico">
+					
+					<p:chart id="gg" type="line" model="#{reporAlimentoMB.zoomModel}" style="height:300px;" widgetVar="chart" />
+
+						<!-- <p:commandButton type="button" value="Repor Alimento"
+							icon="ui-icon-cancel" action="#{reporAlimentoMB.getRepor()}" /> -->
+							<form>
+							<p:commandLink  value="Repor Alimento" action="#{reporAlimentoMB.getRepor()}" update="gg"/>
+							</form>
+					</div>
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="../images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="template-admin/right.xhtml" />
+
+		</div>
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</body>
+</html>

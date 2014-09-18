@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+<title>DicasPet - Celtic Solutions</title>
+
+</h:head>
+<h:body>
+<h:outputStylesheet library="css" name="style.css"/>
+
+	<div class="wrapper">
+		<ui:include src="template-admin/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<ui:include src="template-admin/left-admin.xhtml" />
+				<div class="center">
+								
+					<!-- aqui é onde fica o conteúdo -->
+				<!-- aqui é onde fica o conteúdo -->
+					<div class="bloco-empresa">
+						<h3>Lista Prestador</h3>
+					<!-- 	
+						<ul class="my-menu-lista">
+						
+							<li><a href="/fafica.dicaspet/admin/cadastro-animal.xhtml">Cadastrar Serviço</a></li>
+							<li><a href="/fafica.dicaspet/admin/editar-animal.xhtml">Editar Serviço</a></li>
+							<li><a href="#">Excluir Serviço</a></li>							
+						</ul>
+ 					-->	
+ 					<br></br>
+					<br></br>
+					<div class="pergunta">
+						<div class="link-resposta"><a href="cadastro-prestador.xhtml">Cadastrar Prestador</a></div>
+					</div>
+					
+					<br></br>
+					<br />
+
+						<h:form id="listaPrestadoresAdm">
+						<p:dataTable id="checkboxDT" var="prestador"
+							value="#{prestadorMB.prestadorServicos}"
+							selection="#{prestadorMB.prestadoresSelecionados}" rowKey="#{prestador.prtsrv_id}"
+							style="margin-bottom:0" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+							<f:facet name="header">
+          Empresas
+                            </f:facet>
+							<p:column selectionMode="multiple"
+								style="width:10%;text-align:center" />
+							<p:column headerText="Nome">
+								<h:outputText value="#{prestador.prtsrv_nome}" />
+							</p:column>
+							<p:column headerText="Tipo">
+								<h:outputText value="##{prestador.prtsrv_tipo}}" />
+							</p:column>
+							<p:column headerText="cnpj">
+								<h:outputText value="#{prestador.prtsrv_cnpj}" />
+							</p:column>
+							
+							<f:facet name="footer">
+							
+							<!--  -->
+								<p:commandButton process="checkboxDT"
+									 icon="ui-icon-search"
+									value="Detalhes" oncomplete="PF('multiCarDialog').show()" update=":listaPrestadoresAdm:multiPrestadorDetalhe" />
+							</f:facet>
+						</p:dataTable>
+
+						<p:dialog header="Informações do pretador de serviços" widgetVar="carDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="carDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty prestadorMB.prestadorSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage
+											name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
+									</f:facet>
+
+									<h:outputText value="Id:" />
+									<h:outputText value="#{prestadorMB.prestadorSelecionado.prtsrv_id}" />
+
+									<h:outputText value="Nome" />
+									<h:outputText value="#{prestadorMB.prestadorSelecionado.prtsrv_nome}" />
+
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Prestadores selecionados" widgetVar="multiCarDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false" width="400">
+							<p:outputPanel id="multiPrestadorDetalhe" style="text-align:center;">
+								<ui:repeat value="#{prestadorMB.prestadoresSelecionados}" var="car">
+									<h:outputText value="#{car.prtsrv_id} - #{car.prtsrv_nome}"
+										style="display:block" />
+										<h:commandButton value="Deletar" action="#{prestadorMB.deletar(car)}" />
+										<h:commandButton value="Editar" action="#{prestadorMB.editarPrestadorRedirect(car)}" />
+								</ui:repeat>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+
+
+				</div>
+					<!-- Fim do Bloco -->
+
+					<div class="banner">
+						<h3>Publicidade</h3>
+						<img alt="" src="../images/banner1.jpg" />
+					</div>
+
+
+
+
+
+				</div>
+				<ui:include src="template-admin/right.xhtml" />
+	<div class="clr"></div>
+		</div>
+	
+		<ui:include src="template-admin/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

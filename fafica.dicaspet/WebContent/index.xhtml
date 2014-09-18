@@ -1,0 +1,171 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<title>DicasPet - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"/> -->
+	 <script type="text/javascript" src="resources/js/js.js"></script>
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+
+</h:head>
+<h:body>
+	<!-- <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="stylesheet" type="text/css" /> -->
+	
+	
+	
+
+	<div class="wrapper">
+		  <ui:include src="/template/header.xhtml" />
+		<div class="banner-topo">
+				<img alt="" src="images/topo.jpg" />
+			</div>
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+			<!-- aqui é onde fica o conteúdo -->
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+
+			  <ui:include src="/template/left.xhtml" />
+
+			
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- Inicio Bloco de Perguntas -->
+				<div class="bloco-perguntas">
+					<h3>Últimas Perguntas</h3>
+					<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+
+					<ui:repeat value="#{mensagemMB.ultimasMSG}" var="m"
+						id="listaUltimasMSG">
+						<div class="pergunta">
+							<div class="titulo-pergunta">
+								<h:outputText value="#{m.msg_titulo}" />
+							</div>
+							<div class="data-pergunta">
+								<h:outputText value="#{m.msg_data_cadastro}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</div>
+							<div class="link-resposta">
+								<h:form>
+									<h:commandLink value="Ver Resposta"
+										action="#{mensagemMB.responderMSG(m)}" />
+								</h:form>
+							</div>
+						</div>
+					</ui:repeat>
+
+					<!-- <h:dataTable var="m" value="#{mensagemm.ultimasMSG}" class="pergunta">
+
+						<h:column class="titulo-pergunta">
+							<div >
+								<h:outputText value="#{m.msg_titulo}" />
+							</div>
+						</h:column>
+
+						<h:column class="data-pergunta">
+							<div >
+								<h:outputText value="#{m.msg_data_cadastro}" />
+							</div>
+						</h:column>
+
+						<h:column class="link-resposta">
+							
+								<a href="resposta.xhtml">Ver Resposta</a>
+							
+						</h:column>
+
+
+					</h:dataTable> -->
+
+
+					<!-- 						 <div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						Fim da Pergunta
+						Cada pergunta vai gerar um bloco com a class pergunta
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						Fim da Pergunta
+						Cada pergunta vai gerar um bloco com a class pergunta
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						Fim da Pergunta
+						Cada pergunta vai gerar um bloco com a class pergunta
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="#">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						Fim da Pergunta
+						Cada pergunta vai gerar um bloco com a class pergunta
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div> -->
+					<!-- Fim da Pergunta -->
+				</div>
+				<!-- Fim do Bloco de Perguntas -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			 <ui:include src="/template/right.xhtml" />
+
+
+
+
+		</div>
+		 <ui:include src="/template/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

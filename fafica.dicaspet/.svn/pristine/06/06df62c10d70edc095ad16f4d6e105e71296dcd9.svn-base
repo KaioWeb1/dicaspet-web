@@ -1,0 +1,73 @@
+package com.dicaspet.MB;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesMessageUtil;
+
+@ManagedBean
+public class AnimalMB {
+
+	private Animal animal;
+	private Fachada fachada;
+	private List<Animal> animais;
+
+	public AnimalMB() {
+
+		animal = new Animal();
+		fachada = Fachada.getInstance();
+	}
+
+	public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Animal> getAnimals() {
+		if (animais == null) {
+			try {
+				animais = fachada.controladorAnimal().listar();
+			} catch (Exception e) {
+				animais = new ArrayList<Animal>();
+			}
+		}
+
+		return animais;
+	}
+
+	public void setAnimals(List<Animal> animals) {
+		this.animais = animals;
+	}
+
+	public void cadastrar() {
+
+		fachada.controladorAnimal().cadastrar(animal);
+		FacesMessage message;
+
+		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+				"O animal " + animal.getAni_nome()
+						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	private void limpar(){
+		animal = new Animal();
+	}
+
+}

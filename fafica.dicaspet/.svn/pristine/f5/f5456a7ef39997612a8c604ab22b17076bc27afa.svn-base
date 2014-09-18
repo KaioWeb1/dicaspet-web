@@ -1,0 +1,187 @@
+package com.dicaspet.MB;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesContextUtil;
+
+@ManagedBean(name="usuarioMB")
+@SessionScoped
+public class UsuarioMB {
+
+
+    private Animal animal;
+	private Usuario usuario;
+	private Fachada fachada;
+	private Usuario user;
+	private List<Usuario> usuarios;
+	private List<Animal>animaisSelecionados;
+	private Animal animalSelecionado;
+
+	public UsuarioMB() {
+        user = new Usuario();
+        user.setAtivo(true);
+        
+        animal = new Animal();
+		
+		usuario = new Usuario();
+		fachada = Fachada.getInstance();
+	}
+
+	
+	public Set<Animal>getMeusPets(){
+		
+		System.out.println("Buscou meus pets");
+		return  (Set<Animal>) fachada.controladorUsuario().buscarAnimais(usuario);
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Usuario> getUsuarios() {
+		if (usuarios == null) {
+			try {
+				usuarios = fachada.controladorUsuario().listar();
+			} catch (Exception e) {
+				usuarios = new ArrayList<Usuario>();
+			}
+		}
+
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public String cadastrar() {
+		
+		// cadastrar o usu·rio
+		// recuperar o usuario da base (com o id)
+		// atualizar o objeto do usu·rio no objeto animal
+		// cadasrar animal
+	
+		usuario.setAtivo(true);
+		usuario.setUsu_pontuacao(100);
+		fachada.controladorUsuario().cadastrar(usuario);
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastrado com sucesso.","Usuario "+usuario.getUsu_nome()+" cadastrado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+
+		FacesContextUtil.setSessionAttribute("usuario", usuario);
+		limpar();
+		
+		return "index?faces-redirect=true";
+
+	}
+	
+	public void autenticar(){
+		try {
+			user = fachada.controladorUsuario().logar(user.getUsu_email(), user.getUsu_senha());
+		} catch (Exception e) {
+			System.out.println("usuario invalido");
+			e.printStackTrace();
+		}
+		
+		System.out.println(user.getUsu_nome());
+		if(user==null){
+//			FacesContextUtil.setMessageErro("Login e/ou Senha inv√°lido",
+//					"Login e/ou Senha inv√°lidos!");
+			limpar();
+		}else{
+			user.setAtivo(false);
+			try {
+				FacesContextUtil.setSessionAttribute("usuario", user);
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/fafica.dicaspet/admin/usuario.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		
+		
+	}
+	
+	public String logoff(){
+		FacesContextUtil.setSessionAttribute("usuario", null);
+		FacesContextUtil.logout();
+		System.out.println("Saiu");
+		return "index?faces-redirect=true";
+	}
+	
+	
+	private void limpar(){
+		usuario = new Usuario();
+		user = new Usuario();
+		
+	}
+
+	public Usuario getUser() {
+		return user;
+	}
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+
+	public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
+
+	public List<Animal> getAnimaisSelecionados() {
+		return animaisSelecionados;
+	}
+
+	public void setAnimaisSelecionados(List<Animal> animaisSelecionados) {
+		this.animaisSelecionados = animaisSelecionados;
+	}
+
+	public Animal getAnimalSelecionado() {
+		return animalSelecionado;
+	}
+
+	public void setAnimalSelecionado(Animal animalSelecionado) {
+		this.animalSelecionado = animalSelecionado;
+	}
+	
+	 public void onRowSelect(SelectEvent event) {
+	        FacesMessage msg = new FacesMessage("Animal selecionado", ((Animal) event.getObject()).getAni_id_string());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	 
+	    public void onRowUnselect(UnselectEvent event) {
+	        FacesMessage msg = new FacesMessage("Animal desselecionado", ((Animal) event.getObject()).getAni_id_string());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+
+}

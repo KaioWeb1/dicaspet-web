@@ -1,0 +1,131 @@
+package com.dicaspet.MB;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.entidade.Servico;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesMessageUtil;
+
+@ManagedBean
+public class ServicoMB {
+
+	private Servico servico;
+	private Fachada fachada;
+	private List<Servico> servicos;
+	private Servico servicoSelecionado;
+	private List<Servico>servicosSelecionados;
+	
+
+	public ServicoMB() {
+
+		servico = new Servico();
+		fachada = Fachada.getInstance();
+	}
+
+	public Servico getServico() {
+		return servico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Servico> getServicos() {
+		if (servicos == null) {
+			try {
+				servicos = fachada.controladorServico().listar();
+			} catch (Exception e) {
+				servicos = new ArrayList<Servico>();
+			}
+		}
+
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
+	}
+
+	public void cadastrar() {
+
+		fachada.controladorServico().cadastrar(servico);
+		FacesMessage message;
+
+		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+				"O servico " + servico.getSrv_descricao()
+						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	private void limpar(){
+		servico = new Servico();
+	}
+	
+	 public void onRowSelect(SelectEvent event) {
+	        FacesMessage msg = new FacesMessage("Serviço selecionado", ((Animal) event.getObject()).getAni_id_string());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	 
+	    public void onRowUnselect(UnselectEvent event) {
+	        FacesMessage msg = new FacesMessage("Serviço desselecionado", ((Animal) event.getObject()).getAni_id_string());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+
+		public Servico getServicoSelecionado() {
+			return servicoSelecionado;
+		}
+
+		public void setServicoSelecionado(Servico servicoSelecionado) {
+			this.servicoSelecionado = servicoSelecionado;
+		}
+
+		public List<Servico> getServicosSelecionados() {
+			return servicosSelecionados;
+		}
+
+		public void setServicosSelecionados(List<Servico> servicosSelecionados) {
+			this.servicosSelecionados = servicosSelecionados;
+		}
+		
+		public String editarServicoRedirect(Servico servico) {
+
+			this.servico = servico;
+
+			return "editar-servico?faces-redirect=true";
+
+		}
+
+		public void editar() {
+
+			fachada.controladorServico().atualizar(servico);
+			FacesMessage message = FacesMessageUtil.criarMensagemInfo(
+					"Editado com Sucesso!", "O serviço " + servico.getSrv_descricao()
+							+ " foi editado com sucesso.");
+
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			servico = new Servico();
+		}
+		
+		public void deletar(Servico servico){
+			
+			fachada.controladorServico().remover(servico);
+		}
+
+}

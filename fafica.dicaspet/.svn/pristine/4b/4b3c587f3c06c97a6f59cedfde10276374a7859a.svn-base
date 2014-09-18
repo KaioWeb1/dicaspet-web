@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<title>DicasPet - Celtic Solutions</title>
+<!-- <link rel="stylesheet" type="text/css" href="css/style.css"/> -->
+
+</h:head>
+<h:body>
+<!-- <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="stylesheet" type="text/css" /> --> 
+<h:outputStylesheet library="css" name="style.css"/>
+
+	<div class="wrapper">
+		<div class="header">
+			<div class="topo">
+				
+					<div class="logo">
+						<img src="images/logodicaspet.png" class="img-logo"/>
+
+					</div>
+					<div class="menu">
+						<ul class="ul-menu">
+							<li><a href="#">Home</a></li>
+							<li><a href="servicos.xhtml">Serviços</a></li>
+							<li><a href="perguntas.xhtml">Perguntas e Respostas</a></li>
+							<li><a href="contato.xhtml">Contato</a></li>
+						</ul>
+					</div>
+					<div class="busca">
+						<ul>
+							<li><input type="text" value="Procurar..."/><input
+								type="submit" value="ok"/><img src=""/></li>
+						</ul>
+					</div>
+				
+			</div>
+			<div class="banner-topo">
+				<img alt="" src="images/topo.jpg"/>
+			</div>
+		</div>
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+			
+				<!-- aqui é onde fica o conteúdo -->
+				<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+				<div class="left">
+					<h:panelGroup layout="block" class="login" rendered="#{usuarioMB.user.ativo}">
+						<h3>Entrar no DicasPet</h3>
+						<br />
+						<h:form id="form_autenticar">
+						<label>Email:</label>
+						<h:inputText value="#{usuarioMB.user.usu_email}" /><br /> <br /> 
+						<label>Senha:</label>
+						<h:inputSecret value="#{usuarioMB.user.usu_senha}" /><br /> <br />
+						<div class="bt-logar">
+							<h:commandButton value="Entrar" 
+							action="#{usuarioMB.autenticar}" />
+							<p>Clicar em entrar para acessar o protótipo interno do
+								sistema</p>
+						</div>
+					</h:form>
+					
+					 <div class="link-cad">
+						<p>Venha fazer parte dessa comunidade!</p>
+						<br/> <a href="cadastro.xhtml">Cadastre-se</a> <br/> <br/>
+						<div class="aut-facebook">
+							<a href=""><img alt="" src="images/icones/botao_fb.png"/></a>
+						</div>
+					</div>
+					<div class="duvidas-frequentes">
+						<h3>Dúvidas Frequentes</h3>
+						<ul class="duvidas-lista">
+							<li><a href="#">Como se cadastrar?</a></li>
+							<li><a href="#">Como entrar no DicasPet?</a></li>
+							<li><a href="#">Como Fazer uma Pergunta?</a></li>
+							<li><a href="#">Como responder uma pergunta?</a></li>
+							<li><a href="#">Como encontrar um serviço?</a></li>
+						</ul>
+					</div>
+				</h:panelGroup>
+				
+					<h:panelGroup class="usuario" rendered="#{!usuarioMB.user.ativo}">
+
+						<h:graphicImage library="images" name="user.jpg"/>
+						<h3><h:outputLabel value="#{usuarioMB.user.usu_nome}"/></h3>
+						<!-- <a href="../index.xhtml" class="bt-logoff">Sair</a> -->
+						<h:form>
+						<h:commandButton value="Sair" class="bt-logoff" action="#{usuarioMB.logoff}"/>
+						</h:form>
+						<div class="my-rank">
+						<p>Posição atual</p>
+						<h:graphicImage library="images/rank" name="prata.png"/>
+						<a href="#">2º Lugar</a>
+												
+						</div>
+						<ul class="my-menu">
+							<li><a href="#"><h:graphicImage library="images/icones" name="user.jpg"/>Meu Perfil</a></li>
+							<li><a href="#"><h:graphicImage library="images/icones" name="logodicaspet.png"/>Meu Pet</a></li>
+							<li><a href="#"><h:graphicImage library="images/icones" name="iPhoto.png"/>Fotos</a></li>
+							<li><a href="#"><h:graphicImage library="images/icones" name="Podium-icon.png"/>Ranking</a></li>							
+						</ul>
+
+					</h:panelGroup>
+					
+				</div>
+				<div class="center">
+					<!-- aqui é onde fica o conteúdo -->
+					<!-- Inicio Bloco de Perguntas -->
+					<div class="bloco-perguntas">
+						<h3>Últimas Perguntas</h3>
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						<!-- Fim da Pergunta -->
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						<!-- Fim da Pergunta -->
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						<!-- Fim da Pergunta -->
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="#">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						<!-- Fim da Pergunta -->
+						<!-- Cada pergunta vai gerar um bloco com a class pergunta -->
+						<div class="pergunta">
+
+							<div class="titulo-pergunta">
+								<a href="resposta.xhtml">Meu cachorro está doente, o que fazer?</a>
+							</div>
+							<div class="data-pergunta">10/04/2014</div>
+							<div class="link-resposta">
+								<a href="resposta.xhtml">Ver Resposta</a>
+							</div>
+						</div>
+						<!-- Fim da Pergunta -->
+					</div>
+					<!-- Fim do Bloco de Perguntas -->
+
+					<div class="banner">
+						<h3>Publicidade</h3>
+						<img alt="" src="images/banner1.jpg" />
+					</div>
+
+
+
+
+
+				</div>
+				<div class="right">
+
+					<div class="banner">
+						<h3>Adote um Pet</h3>
+						<a href="#"><img alt=""
+							src="images/adote-um-melhor-amigo-1.jpg" /></a>
+					</div>
+
+					<div class="ranking-user">
+						<h3>Ranking de Usuários</h3>
+
+						<div class="rank-item">
+							<img alt="" src="images/rank/ouro.png"/> - <a href="#">Jão
+								da Silva - 10429 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="images/rank/prata.png"/> - <a href="#">Fulano
+								Santos - 8291 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="images/rank/bronze.png"/> - <a href="#">Zé
+								Maria - 6029 pontos</a>
+						</div>
+
+
+
+					</div>
+					<div class="ranking-serv">
+						<h3>Ranking de Serviços</h3>
+
+						<div class="rank-item">
+							<img alt="" src="images/rank/ouro.png"/> - <a href="#">PetShow
+								- 4920 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="images/rank/prata.png"/> - <a href="#">Animal
+								Pet - 3202 pontos</a>
+						</div>
+						<div class="rank-item">
+							<img alt="" src="images/rank/bronze.png"/> - <a href="#">Bicho
+								Amigo - 2390 pontos</a>
+						</div>
+
+
+
+
+					</div>
+				</div>
+
+
+
+		
+		</div>
+		<div class="footer">
+			<div class="rodape">
+
+				
+					<div class="institucional">
+						<p>Todos os Direitos Reservados à CELTIC Solutions - 2014</p>
+					</div>
+
+			
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>

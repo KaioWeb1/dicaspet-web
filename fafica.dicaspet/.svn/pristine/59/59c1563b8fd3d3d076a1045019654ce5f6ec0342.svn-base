@@ -1,0 +1,73 @@
+package com.dicaspet.MB;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+
+import com.dicaspet.entidade.PrestadorServico;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesMessageUtil;
+
+@ManagedBean
+public class PrestadorServicoMB {
+
+	private PrestadorServico prestadorServico;
+	private Fachada fachada;
+	private List<PrestadorServico> prestadorServicos;
+
+	public PrestadorServicoMB() {
+
+		prestadorServico = new PrestadorServico();
+		fachada = Fachada.getInstance();
+	}
+
+	public PrestadorServico getPrestadorServico() {
+		return prestadorServico;
+	}
+
+	public void setPrestadorServico(PrestadorServico prestadorServico) {
+		this.prestadorServico = prestadorServico;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<PrestadorServico> getPrestadorServicos() {
+		if (prestadorServicos == null) {
+			try {
+				prestadorServicos = fachada.controladorPrestadorServico().listar();
+			} catch (Exception e) {
+				prestadorServicos = new ArrayList<PrestadorServico>();
+			}
+		}
+
+		return prestadorServicos;
+	}
+
+	public void setPrestadorServicos(List<PrestadorServico> prestadorServicos) {
+		this.prestadorServicos = prestadorServicos;
+	}
+
+	public void cadastrar() {
+
+		fachada.controladorPrestadorServico().cadastrar(prestadorServico);
+		FacesMessage message;
+
+		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+				"O prestadorServico " + prestadorServico.getPrtsrv_nome()
+						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	private void limpar(){
+		prestadorServico = new PrestadorServico();
+	}
+
+}

@@ -1,0 +1,73 @@
+package com.dicaspet.MB;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+
+import com.dicaspet.entidade.Mensagem;
+import com.dicaspet.fachada.Fachada;
+import com.dicaspet.util.FacesMessageUtil;
+
+@ManagedBean
+public class MensagemMB {
+
+	private Mensagem mensagem;
+	private Fachada fachada;
+	private List<Mensagem> mensagens;
+
+	public MensagemMB() {
+
+		mensagem = new Mensagem();
+		fachada = Fachada.getInstance();
+	}
+
+	public Mensagem getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(Mensagem mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public Fachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(Fachada fachada) {
+		this.fachada = fachada;
+	}
+
+	public List<Mensagem> getMensagems() {
+		if (mensagens == null) {
+			try {
+				mensagens = fachada.controladorMensagem().listar();
+			} catch (Exception e) {
+				mensagens = new ArrayList<Mensagem>();
+			}
+		}
+
+		return mensagens;
+	}
+
+	public void setMensagems(List<Mensagem> mensagems) {
+		this.mensagens = mensagems;
+	}
+
+	public void cadastrar() {
+
+		fachada.controladorMensagem().cadastrar(mensagem);
+//		FacesMessage message;
+//
+//		message = FacesMessageUtil.criarMensagemInfo("Cadastro com Sucesso!",
+//				"O mensagem " + mensagem.getUsu_nome()
+//						+ " foi cadastrado com sucesso.");
+limpar();
+	}
+	
+	private void limpar(){
+		mensagem = new Mensagem();
+	}
+
+}

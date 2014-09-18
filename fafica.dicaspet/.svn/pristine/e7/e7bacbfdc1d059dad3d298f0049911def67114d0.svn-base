@@ -1,0 +1,10 @@
+package com.dicaspet.MB;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+@ManagedBean(name="pesoIdealMB")
+@RequestScoped
+public class PesoIdealMB {
+
+}

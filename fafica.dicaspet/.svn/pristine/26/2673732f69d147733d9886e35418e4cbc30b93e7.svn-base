@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+
+	<ui:composition>
+		<div class="right">
+		
+			<div id="verifica-peso" class="verifica-peso">
+				<h3>Verificar o Peso Ideal do cachorro</h3>
+				<h:form>
+					
+					<br />
+					<!--<p:inputMask mask="999.99" value="#{pesoIdealMB.pesoAtual}"  /> -->
+					<p:spinner id="step" value="#{pesoIdealMB.pesoAtual}"  suffix=" Kg" min="0.00" max="500.00" stepFactor="0.01"/>					 
+					<br />
+					<br />
+					<h:selectOneMenu value="#{pesoIdealMB.porte}">
+						<f:selectItem itemValue="pequeno" itemLabel="Pequeno" />
+						<f:selectItem itemValue="medio" itemLabel="Medio" />
+						<f:selectItem itemValue="grande" itemLabel="Grande" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+					<h:selectOneMenu value="#{pesoIdealMB.sexo}">
+						<f:selectItem itemValue="femea" itemLabel="Femea" />
+						<f:selectItem itemValue="macho" itemLabel="Macho" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+					<h:commandButton value="Calcular"
+						action="#{pesoIdealMB.calcularPesoIdeal}" />
+				</h:form>
+				<br />
+				<p class="msg-peso">
+					<h:outputText value="#{pesoIdealMB.msg}" />
+				</p>
+
+			</div>
+
+			<div class="banner">
+				<h3>Adote um Pet</h3>
+				<a href="adotar.xhtml"><img alt=""
+					src="../images/adote-um-melhor-amigo-1.jpg" /></a>
+			</div>
+			<div class="ranking-user">
+				<h3>Ranking de Usuários</h3>
+				<ui:repeat var="usuario" value="#{rankingMB.usuarios}">
+
+					<div class="rank-item">
+						<img alt="" src="../images/rank/ouro.png" />
+						<h:outputText value="#{usuario.usu_nome}" />
+						-
+						<h:outputText value="#{usuario.usu_pontuacao}" />
+						pontos
+					</div>
+
+				</ui:repeat>
+			</div>
+
+
+			<div class="ranking-serv">
+				<h3>Ranking de Serviços</h3>
+				<ui:repeat var="servico" value="#{rankingMB.servicos}">
+
+					<div class="rank-item">
+						<img alt="" src="../images/rank/ouro.png" />
+						<h:outputText value="#{servico.srv_descricao}" />
+						-
+						<h:outputText value="#{servico.srv_pontuacao}" />
+						pontos
+					</div>
+
+				</ui:repeat>
+			</div>
+
+			
+			<!-- 				<div class="ranking-user">
+					<h3>Ranking de Usuários</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">Jão
+							da Silva - 10429 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Fulano
+							Santos - 8291 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Zé
+							Maria - 6029 pontos</a>
+					</div>
+
+
+
+				</div>
+				<div class="ranking-serv">
+					<h3>Ranking de Serviços</h3>
+
+					<div class="rank-item">
+						<img alt="" src="images/rank/ouro.png" /> - <a href="#">PetShow
+							- 4920 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/prata.png" /> - <a href="#">Animal
+							Pet - 3202 pontos</a>
+					</div>
+					<div class="rank-item">
+						<img alt="" src="images/rank/bronze.png" /> - <a href="#">Bicho
+							Amigo - 2390 pontos</a>
+					</div>
+
+
+
+
+				</div> -->
+		</div>
+
+	</ui:composition>
+</body>
+</html>

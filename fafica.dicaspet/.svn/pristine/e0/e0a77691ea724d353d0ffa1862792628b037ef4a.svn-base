@@ -1,0 +1,42 @@
+package com.dicaspet.controlador;
+
+import java.util.List;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.repositorio.RepositorioAnimal;
+
+public class ControladorAnimal {
+
+	private RepositorioAnimal rep;
+
+	public ControladorAnimal(RepositorioAnimal rep) {
+		this.rep = rep;
+	}
+
+	public void cadastrar(Animal novo) {
+
+		rep.inserir(novo);
+	}
+
+	public void atualizar(Animal atual) {
+
+		rep.atualizar(atual);
+	}
+
+	public void remover(Animal deletado) {
+		rep.remover(deletado);
+	}
+
+	public List<Animal> listar() {
+		return rep.listar();
+	}
+
+	public List<Animal> buscaNome(String nome) {
+		return rep.buscarNome(nome);
+	}
+
+	public Animal buscarAnimal(Long id) {
+		return rep.buscarAnimal(id);
+	}
+
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>DicasPet- Serviços - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+	<script type="text/javascript">
+	PrimeFaces.locales['pt_BR'] = {  
+            closeText: 'Fechar',  
+            prevText: 'Anterior',  
+            nextText: 'Próximo',  
+            currentText: 'Começo',  
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],  
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],  
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],  
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],  
+            dayNamesMin: ['D','S','T','Q','Q','S','S'],  
+            weekHeader: 'Semana',  
+            firstDay: 1,  
+            isRTL: false,  
+            showMonthAfterYear: false,  
+            yearSuffix: '',  
+            timeOnlyTitle: 'Só Horas',  
+            timeText: 'Tempo',  
+            hourText: 'Hora',  
+            minuteText: 'Minuto',  
+            secondText: 'Segundo',  
+            currentText: 'Data Atual',  
+            ampm: false,  
+            month: 'Mês',  
+            week: 'Semana',  
+            day: 'Dia',  
+            allDayText : 'Todo Dia'  
+        };  
+	
+	</script>
+</h:head>
+<h:body>
+
+
+	<div class="wrapper">
+		<ui:include src="/template/header.xhtml" />
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="/template/left.xhtml" />
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-empresa">
+					<h3>Conhecendo Servicos no DicasPet</h3>
+					<div class="foto-empresa">
+						<img alt="" src="images/user.jpg" />
+
+					</div>
+
+					<div class="desc-empresa">
+						<h2>PetShow</h2>
+						<br /> <br /> <br />Empresa da cidade de Salvador, fundada em
+						1980 ainda hoje funciona, com uma enorme cartela de clientes e
+						empresas Prestamos serviços de banho, tosa e etc;
+						<p class="dados-empresa">
+							Rua dos Ferroviários, 8 E - São João do Cabrito Salvador - BA<br />
+							Email: <a href="#">contato@petshow.com.br</a><br /> Site: <a
+								href="#">www.petshow.com.br</a><br /> Telefone: (85) 3041-3919<br />
+						</p>
+					</div>
+					<div class="solicitar">
+
+						<h:messages errorStyle="color: red" infoStyle="color: green"
+							warnStyle="color: orange" fatalStyle="color: gray"
+							showDetail="true" showSummary="false" />
+
+						<h:form rendered="#{!usuarioMB.user.ativo}">
+
+
+
+							<h3>Solicitar serviço da empresa</h3>
+
+							<!-- <p>Quando?</p> -->
+							<p:outputLabel >Escolha uma data: </p:outputLabel>
+							<p:messages errorStyle="color: red" infoStyle="color: green"
+								warnStyle="color: orange" fatalStyle="color: gray"
+								showDetail="true" showSummary="false" id="message" />
+							<p:calendar id="datetime"
+								value="#{servicoMB.servico.srv_dt_agenda}"
+								pattern="yyyy/MM/dd HH:mm:ss" 
+								requiredMessage="Escolha uma data" required="true"
+								/>
+								
+							<p:dialog modal="true" resizable="false" header="Values"
+								widgetVar="dlg" showEffect="fold">
+								<h:outputText value="#{servicoMB.servico.srv_dt_agenda}">
+									<f:convertDateTime pattern="YYYY/MM/dd HH:mm:ss" />
+								</h:outputText>
+							</p:dialog>
+
+							<!--  		<p>Serviço desejado:</p>
+							<p:selectOneMenu id="console"
+								value="#{selectOneMenuView.console}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Banho" itemValue="Banho" />
+								<f:selectItem itemLabel="Tosa" itemValue="Tosa" />
+								<f:selectItem itemLabel="Vacinação" itemValue="Vacinacao" />
+								<f:selectItem itemLabel="Escovação de Dentes" itemValue="EscovaDentes" />
+							</p:selectOneMenu>
+							<br />
+							-->
+
+
+							<!-- <p:growl id="message" showDetail="true" /> -->
+
+							<p:commandButton value="Agendar serviço"
+								action="#{servicoMB.agendarServico()}" update="message">
+								<p:confirm header="Confirmação" message="Confirme seus dados:"
+									icon="ui-icon-alert" />
+
+							</p:commandButton>
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="explode">
+								<h:outputText value="Nome: #{servicoMB.usuarioLogado.usu_nome}" />
+								<br />
+								<h:outputText
+									value="Email: #{servicoMB.usuarioLogado.usu_email}" />
+								<br />
+								<h:outputText
+									value="Data do agendamento: #{servicoMB.servico.srv_dt_agenda}" />
+								<br />
+								<h:outputText
+									value="Empresa solicitada: #{servicoMB.servico.srv_id_prtsrv.usu_nome}" />
+								<br />
+								<h:outputText
+									value="Serviço solicitado: #{servicoMB.servico.srv_descricao}" />
+								<br />
+								<h:outputText
+									value="Valor do serviço: R$#{servicoMB.servico.srv_preco}" />
+								<br />
+								<br />
+								<p:commandButton value="Confirmar" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="datetime" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+							<br />
+							<br />
+
+						</h:form>
+
+
+
+
+					</div>
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3887.701423343127!2d-38.445043999999996!3d-12.990938999999997!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7161b0bb854cc0f%3A0x353449e540f06356!2sA+PET+SHOP+PET+SHOW!5e0!3m2!1spt-BR!2sbr!4v1398460081659"
+						width="600" height="450" frameborder="0" style="border: 0"></iframe>
+
+				</div>
+				<!-- Fim do Bloco -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+			<ui:include src="/template/right.xhtml" />
+
+		</div>
+		<ui:include src="/template/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

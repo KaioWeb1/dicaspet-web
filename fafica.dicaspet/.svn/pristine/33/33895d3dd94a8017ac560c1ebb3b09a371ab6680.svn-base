@@ -1,0 +1,119 @@
+package com.dicaspet.controlador;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.dicaspet.entidade.Animal;
+import com.dicaspet.entidade.Usuario;
+import com.dicaspet.repositorio.RepositorioUsuario;
+import com.dicaspet.util.Constants;
+
+public class ControladorUsuario {
+
+	private RepositorioUsuario rep;
+
+	public ControladorUsuario(RepositorioUsuario rep) {
+		this.rep = rep;
+	}
+
+	public void reporAlimento(){
+		
+		
+		
+	}
+	public void cadastrar(Usuario novo) {
+		MessageDigest md;
+		String senha = novo.getUsu_senha();
+		String retornaSenha = null;
+
+		try {
+			md = MessageDigest.getInstance("SHA");
+			md.update(senha.getBytes());
+			BigInteger hash = new BigInteger(1, md.digest());
+			retornaSenha = hash.toString(16);
+		} catch (NoSuchAlgorithmException e) {
+
+			e.printStackTrace();
+
+		}
+		novo.setUsu_status(Constants.ATIVO);
+		novo.setUsu_nivel_acesso("usuario");
+		novo.setUsu_senha(retornaSenha);
+		rep.inserir(novo);
+	}
+	
+	public Usuario logar(String email, String senha){
+		
+		MessageDigest md;
+		String senhan = senha;
+		String retornaSenha = null;
+
+		try {
+			md = MessageDigest.getInstance("SHA");
+			md.update(senhan.getBytes());
+			BigInteger hash = new BigInteger(1, md.digest());
+			retornaSenha = hash.toString(16);
+		
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		Usuario usuario = rep.logar(email, retornaSenha);
+		return usuario;
+		}
+	
+
+	public void atualizar(Usuario atual) {
+
+		String senha = atual.getUsu_senha();
+		atual.setUsu_senha(senha);
+
+		rep.atualizar(atual);
+	}
+
+	public void remover(Usuario deletado) {
+		rep.remover(deletado);
+	}
+
+	public List<Usuario> listar() {
+		return rep.listar();
+	}
+	
+	public List<Usuario> listarPorPontuacao(){
+		List<Usuario> usuarios=new ArrayList<Usuario>();
+		List<Usuario> usus = rep.listarPorPontuacao();
+		System.out.println(usus.isEmpty());
+		if(!usus.isEmpty()){
+			for (int i = 0; i <3; i++) {
+				usuarios.add(usus.get(i));
+			}
+		}
+		return usuarios;
+	}
+
+	public List<Usuario> buscaNome(String nome) {
+		return rep.buscarNome(nome);
+	}
+
+	public boolean existeLogin(String login) {
+		return rep.existeLogin(login);
+	}
+
+	public List<Usuario> buscarData(Date inicio, Date fim) {
+		return rep.buscarData(inicio, fim);
+	}
+
+	public Usuario buscarUsuario(Long id) {
+		return rep.buscarUsuario(id);
+		
+	}
+	
+	public List<Animal> buscarAnimais(Usuario u){
+		
+		return rep.meusPets(u);
+	}
+
+}

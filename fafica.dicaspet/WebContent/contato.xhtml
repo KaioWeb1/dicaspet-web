@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+
+	<title>DicasPet- Contato - Celtic Solutions</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+
+
+	<div class="wrapper">
+		<ui:include src="/template/header.xhtml" />
+
+
+		<!-- Conteudo do site começa apartir daqui -->
+		<div class="geral">
+
+			<!-- o layout do site divide-se em 3 colunas: left, center, right -->
+			<ui:include src="/template/left.xhtml" />
+
+			<div class="center">
+				<!-- aqui é onde fica o conteúdo -->
+				<div class="bloco-contato">
+					<h3>Alguma Dúvida? Entre em contato conosco.</h3>
+					<form action="" method="post">
+						<h:messages errorStyle="color: red" infoStyle="color: green"
+							warnStyle="color: orange" fatalStyle="color: gray"
+							showDetail="true" showSummary="false" />
+						<label>Nome:</label>
+						<p:inputText id="nome" value="#{usuarioMB.usuario.usu_nome}"
+							requiredMessage="Nome: Campo Obrigatório" required="true" />
+						<p:watermark for="nome" value="Nome do usuário" />
+						<br /> <label>E-mail:</label>
+						<p:inputText id="email" value="#{usuarioMB.usuario.usu_email}"
+							required="true" label="email"
+							requiredMessage="Por favor insira seu endereço de e-mail."
+							validatorMessage="Email Inválido">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+						<p:watermark for="email" value="Email para contato" />
+						<br /> <label>Assunto:</label>
+						<p:inputText id="assunto" />
+						<br /> <label>Mensagem:</label>
+						<p:inputTextarea></p:inputTextarea>
+						<br /> <br /> <input type="submit" value="Enviar"
+							class="bt-enviar" />
+					</form>
+				</div>
+				<!-- Fim do Bloco  -->
+
+				<div class="banner">
+					<h3>Publicidade</h3>
+					<img alt="" src="images/banner1.jpg" />
+				</div>
+
+
+
+
+
+			</div>
+
+			<ui:include src="/template/right.xhtml" />
+
+
+		</div>
+		<ui:include src="/template/footer.xhtml" />
+
+	</div>
+
+</body>
+</html>
